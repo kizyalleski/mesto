@@ -1,0 +1,9 @@
+.profile__info {
+  padding-top: 21px;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: repeat(2, max-content);
+  align-items: baseline;
+  column-gap: 19px;
+  row-gap: 8px;
+}
