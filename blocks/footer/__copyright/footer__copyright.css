@@ -5,3 +5,15 @@
   line-height: 22px;
   color: #545454;
 }
+
+@media (max-width: 1000px) {
+  .footer__copyright {
+    padding-left: 64px;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer__copyright {
+    padding-left: 27px;
+  }
+}
