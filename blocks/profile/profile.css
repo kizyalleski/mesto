@@ -5,3 +5,17 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@media (max-width: 800px) {
+  .profile {
+    flex-direction: column;
+    row-gap: 33px;
+  }
+}
+
+@media (max-width: 320px) {
+  .profile {
+    margin-top: 42px;
+    row-gap: 33px;
+  }
+}

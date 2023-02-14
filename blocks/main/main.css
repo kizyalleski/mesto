@@ -1,0 +1,13 @@
+@media (max-width: 1000px) {
+  .main {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (max-width: 320px) {
+  .main {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+}
