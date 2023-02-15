@@ -1,0 +1,22 @@
+.form__submit {
+  display: block;
+  padding: 12px 0 13px;
+  margin-top: 48px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
+  background: #000000;
+  border-radius: 2px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .form__submit {
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 45px;
+  }
+}
