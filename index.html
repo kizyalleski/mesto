@@ -9,6 +9,7 @@
   <meta name="author" content="Максим Успенский">
   <title>Mesto: базовая функциональность</title>
   <link rel="stylesheet" href="./pages/index.css">
+  <script src="./pages/index.js" defer></script>
 </head>
 
 <body class="page">
@@ -24,7 +25,7 @@
           <div class="profile__info">
             <h1 class="profile__user-name">Жак-Ив Кусто</h1>
             <p class="profile__user-occupation">Исследователь океана</p>
-            <button class="profile__edit-button"></button>
+            <button id="edit-profile-button" class="profile__edit-button"></button>
           </div>
         </div>
         <button class="profile__add-button"></button>
@@ -78,9 +79,9 @@
       <p class="footer__copyright">© 2022 Mesto Russia</p>
     </footer>
   </div>
-  <section class="popup">
+  <section id="edit-profile-popup" class="popup popup__hidden">
     <div class="popup__container">
-      <button class="popup__close-button"></button>
+      <button id="close-popup-button" class="popup__close-button"></button>
       <form class="form">
         <h3 class="form__heading">Редактировать профиль</h3>
         <input type="text" class="form__user-name" value="Жак-Ив Кусто">
