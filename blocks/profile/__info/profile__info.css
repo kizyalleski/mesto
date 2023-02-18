@@ -6,12 +6,10 @@
   align-items: baseline;
   column-gap: 19px;
   row-gap: 8px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  max-width: 400px;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 600px) {
   .profile__info {
     padding-top: 26px;
     column-gap: 10px;
