@@ -38,7 +38,7 @@
 
 /* блок popup */
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/__hidden/popup__hidden.css);
+@import url(../blocks/popup/_hidden/popup_hidden.css);
 @import url(../blocks/popup/__container/popup__conteiner.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 /* блок form */
