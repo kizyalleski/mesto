@@ -1,5 +1,5 @@
 .profile__info {
-  padding-top: 21px;
+  padding-top: 22px;
   display: grid;
   grid-template-columns: repeat(2, max-content);
   grid-template-rows: repeat(2, max-content);
