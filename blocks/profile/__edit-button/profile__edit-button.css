@@ -1,7 +1,6 @@
 .profile__edit-button {
   grid-column-start: 2;
   padding: 0;
-  border: 0;
   width: 24px;
   height: 24px;
   background-color: #000000;
