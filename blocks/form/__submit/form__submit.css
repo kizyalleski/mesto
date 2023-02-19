@@ -6,8 +6,8 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  color: #ffffff;
-  background: #000000;
+  color: #fff;
+  background: #000;
   border-radius: 2px;
   width: 100%;
   box-sizing: border-box;
@@ -16,8 +16,7 @@
 }
 
 .form__submit:hover {
-  background: #000000;
-  opacity: .8;
+  background: rgba(0, 0, 0, .8);
 }
 
 @media (max-width: 600px) {
