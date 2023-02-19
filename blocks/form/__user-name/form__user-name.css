@@ -1,9 +1,0 @@
-.form__user-name {
-  margin-top: 50px;
-}
-
-@media (max-width: 600px) {
-  .form__user-name {
-    margin-top: 76px;
-  }
-}

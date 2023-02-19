@@ -10,6 +10,8 @@ const likeButton = document.querySelectorAll('.element__like'); // массив 
 
 // функция открытия попапа
 function openPopup(popup) {
+  formUserName.value = profileUserName.textContent;   // подстановка значений из основной страницы в попап
+  formUserOccupation.value = profileUserOccupation.textContent;
   popup.classList.add('popup_opened');
 }
 
@@ -17,10 +19,6 @@ function openPopup(popup) {
 function closePoup(popup) {
   popup.classList.remove('popup_opened');
 }
-
-// подстановка значений из основной страницы в попап
-formUserName.value = profileUserName.textContent;
-formUserOccupation.value = profileUserOccupation.textContent;
 
 // нажатие кнопки редактировать профиль
 editProfileButton.addEventListener('click', function () {
@@ -39,10 +37,3 @@ formSubmitButton.addEventListener('click', function() {
   profileUserOccupation.textContent = formUserOccupation.value;
   closePoup(editProfilePopup);
 });
-
-// нажатие на лайк
-for (let i = 0; i < likeButton.length; i++) {
-  likeButton[i].addEventListener('click', function() {
-    likeButton[i].classList.toggle('element__like_active');
-  })
-}
