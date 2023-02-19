@@ -4,12 +4,12 @@ const editProfilePopup = document.querySelector('#edit-profile-popup'); // по�
 
 // функция открытия попапа
 function openPopup(popup) {
-  popup.classList.remove('popup_hidden');
+  popup.classList.add('popup_opened');
 }
 
 // функция закрытия попапа
 function closePoup(popup) {
-  popup.classList.add('popup_hidden');
+  popup.classList.remove('popup_opened');
 }
 
 // нажатие кнопки редактировать профиль

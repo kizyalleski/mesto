@@ -16,7 +16,6 @@
   <div class="content">
     <header class="header">
       <img src="./images/logo.svg" alt="Логотип Место" class="header__logo">
-      <div class="header__line"></div>
     </header>
     <main class="main">
       <section class="profile">
@@ -25,70 +24,70 @@
           <div class="profile__info">
             <h1 id="profile-user-name" class="profile__user-name">Жак-Ив Кусто</h1>
             <p id="profile-user-occupation" class="profile__user-occupation">Исследователь океана</p>
-            <button id="edit-profile-button" class="profile__edit-button"></button>
+            <button id="edit-profile-button" type="button" class="profile__edit-button"></button>
           </div>
         </div>
-        <button class="profile__add-button"></button>
+        <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements">
-        <div class="element">
+        <article class="element">
           <img src="./images/tbilisi.jpg" alt="Вид на Тбилиси" class="element__image">
           <div class="element__description">
             <h2 class="element__name">Грузия</h2>
-            <button class="element__like"></button>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/yerevan.jpg" alt="Вид на Ереван" class="element__image">
           <div class="element__description">
             <h2 class="element__name">Армения</h2>
-            <button class="element__like"></button>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/istanbul.jpg" alt="Вид на Стамбул" class="element__image">
           <div class="element__description">
             <h2 class="element__name">Турция</h2>
-            <button class="element__like"></button>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/kazakhstan.jpg" alt="Поселок в Казахстане на фоне гор" class="element__image">
           <div class="element__description">
             <h2 class="element__name">Казахстан</h2>
-            <button class="element__like"></button>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/uzbekistan.jpg" alt="Площадь Регистан в Узбекистане" class="element__image">
           <div class="element__description">
             <h2 class="element__name">Узбекистан</h2>
-            <button class="element__like"></button>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/montenegro.jpg" alt= "Которский замок на фоне гор и акватории" class="element__image">
           <div class="element__description">
             <h2 class="element__name">Черногория</h2>
-            <button class="element__like"></button>
+            <button type="button" class="element__like"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2022 Mesto Russia</p>
     </footer>
   </div>
-  <section id="edit-profile-popup" class="popup popup_hidden">
+  <div id="edit-profile-popup" class="popup">
     <div class="popup__container">
-      <button id="close-popup-button" class="popup__close-button"></button>
-      <form class="form">
-        <h3 class="form__heading">Редактировать профиль</h3>
-        <input type="text" id="form-user-name" name="user-name" class="form__user-name" placeholder="Жак-Ив Кусто">
-        <input type="text" id="form-user-occupation" name="user-occupation" class="form__user-occupation" placeholder="Исследователь океана">
-        <button id="form-submit-button" class="form__submit">Сохранить</button>
+      <button id="close-popup-button" type="button" class="popup__close-button"></button>
+      <h3 class="form__heading">Редактировать профиль</h3>
+      <form name="urer-information-form" class="form">
+        <input type="text" id="form-user-name" name="user-name" class="input form__user-name" placeholder="Имя">
+        <input type="text" id="form-user-occupation" name="user-occupation" class="input form__user-occupation" placeholder="Род деятельности">
+        <button id="form-submit-button" type="button" class="form__submit">Сохранить</button>
       </form>
     </div>
-  </section>
+  </div>
 </body>
 </html>
