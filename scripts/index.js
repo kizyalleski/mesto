@@ -1,9 +1,9 @@
 const editProfilePopup = document.querySelector("#editProfilePopup");
 const editProfileButton = document.querySelector("#editProfileButton");
-const closePopupButton = document.querySelector("#closePopupButton");
-const formSubmitButton = document.querySelector("#formSubmitButton");
+const closePopupButton = document.querySelector("#closeEditProfilePopupButton");
+const editProfileFormSubmitButton = document.querySelector("#editProfileFormSubmitButton");
 const profileUserName = document.querySelector("#profileUserName");
-const profileUserOccupation = document.querySelector("#profileUserOccupationn");
+const profileUserOccupation = document.querySelector("#profileUserOccupation");
 const formUserName = document.querySelector("#formUserName");
 const formUserOccupation = document.querySelector("#formUserOccupation");
 const likeButton = document.querySelectorAll(".element__like"); // массив кнопок
@@ -31,7 +31,7 @@ closePopupButton.addEventListener("click", function () {
 });
 
 // нажатие кнопки сохранить
-formSubmitButton.addEventListener("click", function () {
+editProfileFormSubmitButton.addEventListener("click", function () {
   event.preventDefault();
   profileUserName.textContent = formUserName.value;
   profileUserOccupation.textContent = formUserOccupation.value;
@@ -77,8 +77,11 @@ const initialCards = [
 const elements = document.querySelector("#elements");
 initialCards.forEach((card) => {
   const elementTemplate = document.querySelector('#elementTemplate').content.cloneNode(true);
-  const elementUrl = elementTemplate.querySelector('.element__image').setAttribute("src", card.url);
-  const elementAlt = elementTemplate.querySelector('.element__image').setAttribute("alt", card.alt);
-  const elementHeading = elementTemplate.querySelector('.element__name').textContent = card.heading;
+  const elementUrl = elementTemplate.querySelector('.element__image');
+  elementUrl.setAttribute("src", card.url);
+  const elementAlt = elementTemplate.querySelector('.element__image');
+  elementAlt.setAttribute("alt", card.alt);
+  const elementHeading = elementTemplate.querySelector('.element__name');
+  elementHeading.textContent = card.heading;
   elements.append(elementTemplate);
 });

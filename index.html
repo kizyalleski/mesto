@@ -29,7 +29,7 @@
         </div>
         <button type="button" class="profile__add-button"></button>
       </section>
-      <section id = "elements" class="elements">
+      <section id="elements" class="elements">
         <template id="elementTemplate">
           <article class="element">
             <img class="element__image">
@@ -47,14 +47,28 @@
   </div>
   <div id="editProfilePopup" class="popup">
     <div class="popup__container">
-      <button id="closePopupButton" type="button" class="popup__close-button"></button>
+      <button id="closeEditProfilePopupButton" type="button" class="popup__close-button"></button>
       <h3 class="popup__heading">Редактировать профиль</h3>
       <form name="urer-information-form" class="form">
         <input type="text" id="formUserName" name="user-name" class="form__input" placeholder="Имя">
-        <input type="text" id="formUserOccupation" name="user-occupation" class="form__input" placeholder="Род деятельности">
-        <button id="formSubmitButton" type="submit" class="form__submit">Сохранить</button>
+        <input type="text" id="formUserOccupation" name="user-occupation" class="form__input"
+          placeholder="Род деятельности">
+        <button id="editProfileFormSubmitButton" type="submit" class="form__submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div id="addSongPopup" class="popup popup_opened">
+    <div class="popup__container">
+      <button id="closeAddSongPopupButton" type="button" class="popup__close-button"></button>
+      <h3 class="popup__heading">Новое место</h3>
+      <form name="add-song-form" class="form">
+        <input type="text" id="formSongName" name="song-name" class="form__input" placeholder="Название">
+        <input type="text" id="formSongUrl" name="son-url" class="form__input"
+          placeholder="Ссылка на картинку">
+        <button id="formSubmitButton" type="submit" class="form__submit">Создать</button>
       </form>
     </div>
   </div>
 </body>
+
 </html>
