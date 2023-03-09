@@ -45,7 +45,7 @@ editProfileFormSubmitButton.addEventListener("click", function () {
 ////////////////////////////////
 
 // Объект с наполнением начальных карточек
-const initialCards = [
+const cards = [
   {
     url: "./images/tbilisi.jpg",
     alt: "Вид на Тбилиси",
@@ -80,7 +80,7 @@ const initialCards = [
 
 // добавление на страницу начальных карточек
 const elements = document.querySelector("#elements");
-initialCards.forEach((card) => {
+cards.forEach((card) => {
   const elementTemplate = document.querySelector('#elementTemplate').content.cloneNode(true);
   const elementUrl = elementTemplate.querySelector('.element__image');
   elementUrl.setAttribute("src", card.url);
@@ -102,4 +102,15 @@ addSongButton.addEventListener('click', function() {
 
 closeAddSongPopupButton.addEventListener('click', function() {
   closePopup(addSongPopup);
+});
+
+
+
+
+///ФУНКЦИОНАЛ ЛАЙКА
+const likes = document.querySelectorAll('.element__like');
+likes.forEach(function(item) {
+  item.addEventListener('click', function() {
+    item.classList.toggle('element__like_active');
+  });
 });
