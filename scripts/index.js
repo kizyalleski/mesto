@@ -1,6 +1,6 @@
 const editProfilePopup = document.querySelector("#editProfilePopup");
 const editProfileButton = document.querySelector("#editProfileButton");
-const closePopupButton = document.querySelector("#closeEditProfilePopupButton");
+const closeEditProfilePopupButton = document.querySelector("#closeEditProfilePopupButton");
 const editProfileFormSubmitButton = document.querySelector("#editProfileFormSubmitButton");
 const profileUserName = document.querySelector("#profileUserName");
 const profileUserOccupation = document.querySelector("#profileUserOccupation");
@@ -9,14 +9,15 @@ const formUserOccupation = document.querySelector("#formUserOccupation");
 const likeButton = document.querySelectorAll(".element__like"); // массив кнопок
 
 // функция открытия попапа
+formUserName.value = profileUserName.textContent; // подстановка значений из основной страницы в попап
+formUserOccupation.value = profileUserOccupation.textContent;
+
 function openPopup(popup) {
-  formUserName.value = profileUserName.textContent; // подстановка значений из основной страницы в попап
-  formUserOccupation.value = profileUserOccupation.textContent;
   popup.classList.add("popup_opened");
 }
 
 // функция закрытия попапа
-function closePoup(popup) {
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
@@ -26,8 +27,8 @@ editProfileButton.addEventListener("click", function () {
 });
 
 // нажатие кнопки закрытыя редактирования профия
-closePopupButton.addEventListener("click", function () {
-  closePoup(editProfilePopup);
+closeEditProfilePopupButton.addEventListener("click", function () {
+  closePopup(editProfilePopup);
 });
 
 // нажатие кнопки сохранить
@@ -35,8 +36,11 @@ editProfileFormSubmitButton.addEventListener("click", function () {
   event.preventDefault();
   profileUserName.textContent = formUserName.value;
   profileUserOccupation.textContent = formUserOccupation.value;
-  closePoup(editProfilePopup);
+  closePopup(editProfilePopup);
 });
+
+
+
 
 ////////////////////////////////
 
@@ -74,6 +78,7 @@ const initialCards = [
   },
 ];
 
+// добавление на страницу начальных карточек
 const elements = document.querySelector("#elements");
 initialCards.forEach((card) => {
   const elementTemplate = document.querySelector('#elementTemplate').content.cloneNode(true);
@@ -84,4 +89,17 @@ initialCards.forEach((card) => {
   const elementHeading = elementTemplate.querySelector('.element__name');
   elementHeading.textContent = card.heading;
   elements.append(elementTemplate);
+});
+
+// ДОБАВЛЕНИЕ НОВЫХ КАРТОЧЕК
+const addSongPopup = document.querySelector('#addSongPopup');
+const addSongButton = document.querySelector('#addSongButton');
+const closeAddSongPopupButton = document.querySelector('#closeAddSongPopupButton');
+
+addSongButton.addEventListener('click', function() {
+  openPopup(addSongPopup);
+});
+
+closeAddSongPopupButton.addEventListener('click', function() {
+  closePopup(addSongPopup);
 });
