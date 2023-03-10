@@ -1,7 +1,11 @@
 const editProfilePopup = document.querySelector("#editProfilePopup");
 const editProfileButton = document.querySelector("#editProfileButton");
-const closeEditProfilePopupButton = document.querySelector("#closeEditProfilePopupButton");
-const editProfileFormSubmitButton = document.querySelector("#editProfileFormSubmitButton");
+const closeEditProfilePopupButton = document.querySelector(
+  "#closeEditProfilePopupButton"
+);
+const editProfileFormSubmitButton = document.querySelector(
+  "#editProfileFormSubmitButton"
+);
 const profileUserName = document.querySelector("#profileUserName");
 const profileUserOccupation = document.querySelector("#profileUserOccupation");
 const formUserName = document.querySelector("#formUserName");
@@ -38,9 +42,6 @@ editProfileFormSubmitButton.addEventListener("click", function () {
   profileUserOccupation.textContent = formUserOccupation.value;
   closePopup(editProfilePopup);
 });
-
-
-
 
 ////////////////////////////////
 
@@ -79,38 +80,52 @@ const cards = [
 ];
 
 // добавление на страницу начальных карточек
-const elements = document.querySelector("#elements");
-cards.forEach((card) => {
-  const elementTemplate = document.querySelector('#elementTemplate').content.cloneNode(true);
-  const elementUrl = elementTemplate.querySelector('.element__image');
+// const elements = document.querySelector("#elements");
+function createNewCard(card) {
+  const elementTemplate = document.querySelector("#elementTemplate").content.cloneNode(true);
+  const elementUrl = elementTemplate.querySelector(".element__image");
   elementUrl.setAttribute("src", card.url);
-  const elementAlt = elementTemplate.querySelector('.element__image');
+  const elementAlt = elementTemplate.querySelector(".element__image");
   elementAlt.setAttribute("alt", card.alt);
-  const elementHeading = elementTemplate.querySelector('.element__name');
+  const elementHeading = elementTemplate.querySelector(".element__name");
   elementHeading.textContent = card.heading;
   elements.append(elementTemplate);
-});
+}
+
+cards.forEach(createNewCard);
 
 // ДОБАВЛЕНИЕ НОВЫХ КАРТОЧЕК
-const addSongPopup = document.querySelector('#addSongPopup');
-const addSongButton = document.querySelector('#addSongButton');
-const closeAddSongPopupButton = document.querySelector('#closeAddSongPopupButton');
+const addCardPopup = document.querySelector("#addCardPopup");
+const addCardButton = document.querySelector("#addCardButton");
+const closeAddCardPopupButton = document.querySelector("#closeAddCardPopupButton");
 
-addSongButton.addEventListener('click', function() {
-  openPopup(addSongPopup);
+addCardButton.addEventListener("click", function () {
+  openPopup(addCardPopup);
 });
 
-closeAddSongPopupButton.addEventListener('click', function() {
-  closePopup(addSongPopup);
+closeAddCardPopupButton.addEventListener("click", function () {
+  closePopup(addCardPopup);
 });
 
+const addCardformSubmitButton = document.querySelector("#addCardformSubmitButton");
+const formCardName = document.querySelector("#formCardName");
+const formCardUrl = document.querySelector("#formCardUrl");
 
-
+addCardformSubmitButton.addEventListener("click", function () {
+  event.preventDefault();
+  const newCard = {
+    url: formCardUrl.value,
+    alt: "Добавленное изображение",
+    heading: formCardName.value
+  };
+  createNewCard(newCard);
+  closePopup(addCardPopup);
+});
 
 ///ФУНКЦИОНАЛ ЛАЙКА
-const likes = document.querySelectorAll('.element__like');
-likes.forEach(function(item) {
-  item.addEventListener('click', function() {
-    item.classList.toggle('element__like_active');
+const likes = document.querySelectorAll(".element__like");
+likes.forEach(function (item) {
+  item.addEventListener("click", function () {
+    item.classList.toggle("element__like_active");
   });
 });
