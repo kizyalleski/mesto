@@ -122,7 +122,15 @@ addCardformSubmitButton.addEventListener("click", function () {
   closePopup(addCardPopup);
 });
 
-///ФУНКЦИОНАЛ ЛАЙКА
+// ФУНКЦИОНАЛ УДАЛЕНИЯ КАРТОЧКИ
+const trashButtons = document.querySelectorAll('.element__trash');
+trashButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    button.closest('.element').remove();
+  });
+});
+
+// ФУНКЦИОНАЛ ЛАЙКА
 const likes = document.querySelectorAll(".element__like");
 likes.forEach(function (item) {
   item.addEventListener("click", function () {
