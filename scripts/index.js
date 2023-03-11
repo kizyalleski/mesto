@@ -137,3 +137,18 @@ likes.forEach(function (item) {
     item.classList.toggle("element__like_active");
   });
 });
+
+// нажатие кнопки закрытия попапа изображения
+const imagePopup = document.querySelector('#imagePopup');
+const closeImagePopupButton = document.querySelector('#closeImagePopupButton');
+closeImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
+
+// нажатие на изображение
+const fullcreenButtons = document.querySelectorAll('.element__fullscreen');
+fullcreenButtons.forEach( button => {
+  button.addEventListener('click', () => {
+
+    
+    openPopup(imagePopup)
+  });
+})

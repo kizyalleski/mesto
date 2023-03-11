@@ -32,7 +32,7 @@
       <section id="elements" class="elements">
         <template id="elementTemplate">
           <article class="element">
-            <img class="element__image">
+            <button class="element__fullscreen"> <img class="element__image"></button>
             <button type="button" class="element__trash"></button>
             <div class="element__description">
               <h2 class="element__name"></h2>
@@ -46,6 +46,7 @@
       <p class="footer__copyright">© 2022 Mesto Russia</p>
     </footer>
   </div>
+
   <div id="editProfilePopup" class="popup">
     <div class="popup__container">
       <button id="closeEditProfilePopupButton" type="button" class="popup__close-button"></button>
@@ -58,16 +59,24 @@
       </form>
     </div>
   </div>
+
   <div id="addCardPopup" class="popup">
     <div class="popup__container">
       <button id="closeAddCardPopupButton" type="button" class="popup__close-button"></button>
       <h3 class="popup__heading">Новое место</h3>
       <form name="add-card-form" class="form">
         <input type="text" id="formCardName" name="card-name" class="form__input" placeholder="Название">
-        <input type="text" id="formCardUrl" name="card-url" class="form__input"
-          placeholder="Ссылка на картинку">
+        <input type="text" id="formCardUrl" name="card-url" class="form__input" placeholder="Ссылка на картинку">
         <button id="addCardformSubmitButton" type="submit" class="form__submit">Создать</button>
       </form>
+    </div>
+  </div>
+
+  <div id="imagePopup" class="popup popup_image popup_opened">
+    <div class="popup__container popup__container_image">
+      <button type="button" id="closeImagePopupButton" class="popup__close-button"></button>
+      <img src="./images/Image.jpg" alt="" class="popup__image">
+      <p class="popup__caption">Горный Алтай</p>
     </div>
   </div>
 </body>
