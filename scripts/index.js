@@ -99,7 +99,8 @@ const addCardPopup = document.querySelector("#addCardPopup");
 const addCardButton = document.querySelector("#addCardButton");
 const closeAddCardPopupButton = document.querySelector("#closeAddCardPopupButton");
 
-addCardButton.addEventListener("click", function () {
+addCardButton.addEventListener("click", function (event) {
+  console.log(event.target.textContent);
   openPopup(addCardPopup);
 });
 
@@ -145,10 +146,18 @@ closeImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
 
 // нажатие на изображение
 const fullcreenButtons = document.querySelectorAll('.element__fullscreen');
-fullcreenButtons.forEach( button => {
-  button.addEventListener('click', () => {
 
-    
-    openPopup(imagePopup)
+
+fullcreenButtons.forEach( button => {
+  button.addEventListener('click', (event) => {
+    const image = imagePopup.querySelector('.popup__image');
+    const imageData = {
+      url : event.target.getAttribute('src'),
+      caption : event.target.parentElement.nextElementSibling.nextElementSibling.firstElementChild.textContent,
+    };
+    image.setAttribute('src', imageData.url);
+    image.nextElementSibling.textContent = imageData.caption;
+
+    openPopup(imagePopup);
   });
 })
