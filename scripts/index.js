@@ -36,7 +36,7 @@ closeEditProfilePopupButton.addEventListener("click", function () {
 });
 
 // нажатие кнопки сохранить
-editProfileFormSubmitButton.addEventListener("click", function () {
+editProfileFormSubmitButton.addEventListener("click", function (event) {
   event.preventDefault();
   profileUserName.textContent = formUserName.value;
   profileUserOccupation.textContent = formUserOccupation.value;
@@ -80,9 +80,11 @@ const cards = [
 ];
 
 // добавление на страницу начальных карточек
-// const elements = document.querySelector("#elements");
+
 function createNewCard(card) {
-  const elementTemplate = document.querySelector("#elementTemplate").content.cloneNode(true);
+  const elementTemplate = document
+    .querySelector("#elementTemplate")
+    .content.cloneNode(true);
   const elementUrl = elementTemplate.querySelector(".element__image");
   elementUrl.setAttribute("src", card.url);
   const elementAlt = elementTemplate.querySelector(".element__image");
@@ -90,14 +92,49 @@ function createNewCard(card) {
   const elementHeading = elementTemplate.querySelector(".element__name");
   elementHeading.textContent = card.heading;
   elements.append(elementTemplate);
+  // ФУНКЦИОНАЛ УДАЛЕНИЯ КАРТОЧКИ
+  const trashButtons = document.querySelectorAll(".element__trash");
+  trashButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      button.closest(".element").remove();
+    });
+  });
+  // ФУНКЦИОНАЛ ЛАЙКА
+  const likes = document.querySelectorAll(".element__like");
+  likes.forEach(function (item) {
+    item.addEventListener("click", function () {
+      item.classList.toggle("element__like_active");
+    });
+  });
+  // НАЖАТИЕ НА ИЗОБРАЖЕНИЕ
+  const fullcreenButtons = document.querySelectorAll(".element__fullscreen");
+
+  fullcreenButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const image = imagePopup.querySelector(".popup__image");
+      const imageData = {
+        url: event.target.getAttribute("src"),
+        caption:
+          event.target.parentElement.nextElementSibling.nextElementSibling
+            .firstElementChild.textContent,
+      };
+      image.setAttribute("src", imageData.url);
+      image.nextElementSibling.textContent = imageData.caption;
+
+      openPopup(imagePopup);
+    });
+  });
 }
+
 
 cards.forEach(createNewCard);
 
 // ДОБАВЛЕНИЕ НОВЫХ КАРТОЧЕК
 const addCardPopup = document.querySelector("#addCardPopup");
 const addCardButton = document.querySelector("#addCardButton");
-const closeAddCardPopupButton = document.querySelector("#closeAddCardPopupButton");
+const closeAddCardPopupButton = document.querySelector(
+  "#closeAddCardPopupButton"
+);
 
 addCardButton.addEventListener("click", function (event) {
   console.log(event.target.textContent);
@@ -108,56 +145,26 @@ closeAddCardPopupButton.addEventListener("click", function () {
   closePopup(addCardPopup);
 });
 
-const addCardformSubmitButton = document.querySelector("#addCardformSubmitButton");
+const addCardformSubmitButton = document.querySelector(
+  "#addCardformSubmitButton"
+);
 const formCardName = document.querySelector("#formCardName");
 const formCardUrl = document.querySelector("#formCardUrl");
 
-addCardformSubmitButton.addEventListener("click", function () {
+addCardformSubmitButton.addEventListener("click", function (event) {
   event.preventDefault();
   const newCard = {
     url: formCardUrl.value,
     alt: "Добавленное изображение",
-    heading: formCardName.value
+    heading: formCardName.value,
   };
   createNewCard(newCard);
   closePopup(addCardPopup);
 });
 
-// ФУНКЦИОНАЛ УДАЛЕНИЯ КАРТОЧКИ
-const trashButtons = document.querySelectorAll('.element__trash');
-trashButtons.forEach(function(button) {
-  button.addEventListener('click', function() {
-    button.closest('.element').remove();
-  });
-});
-
-// ФУНКЦИОНАЛ ЛАЙКА
-const likes = document.querySelectorAll(".element__like");
-likes.forEach(function (item) {
-  item.addEventListener("click", function () {
-    item.classList.toggle("element__like_active");
-  });
-});
 
 // нажатие кнопки закрытия попапа изображения
-const imagePopup = document.querySelector('#imagePopup');
-const closeImagePopupButton = document.querySelector('#closeImagePopupButton');
-closeImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
+const imagePopup = document.querySelector("#imagePopup");
+const closeImagePopupButton = document.querySelector("#closeImagePopupButton");
+closeImagePopupButton.addEventListener("click", () => closePopup(imagePopup));
 
-// нажатие на изображение
-const fullcreenButtons = document.querySelectorAll('.element__fullscreen');
-
-
-fullcreenButtons.forEach( button => {
-  button.addEventListener('click', (event) => {
-    const image = imagePopup.querySelector('.popup__image');
-    const imageData = {
-      url : event.target.getAttribute('src'),
-      caption : event.target.parentElement.nextElementSibling.nextElementSibling.firstElementChild.textContent,
-    };
-    image.setAttribute('src', imageData.url);
-    image.nextElementSibling.textContent = imageData.caption;
-
-    openPopup(imagePopup);
-  });
-})
