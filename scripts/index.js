@@ -170,5 +170,14 @@ addCardformSubmitButton.addEventListener("click", function (event) {
     newLike.classList.toggle('element__like_active');
   })
 
+  let newTrashButtons = document.querySelectorAll('.element__trash');
+  let newTrashButton = newTrashButtons[newTrashButtons.length - 1];
+  newTrashButton.addEventListener('click', function() {
+    newTrashButton.closest('.element').remove();
+  })
+
+  let newFullcreenButtons = document.querySelectorAll(".element__fullscreen");
+  let newFullcreenButton = newFullcreenButtons[newTrashButtons.length - 1];
+  console.log(newFullcreenButton);
 
 });
