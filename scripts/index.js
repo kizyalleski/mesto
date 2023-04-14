@@ -11,6 +11,8 @@ const profileUserOccupation = document.querySelector("#profileUserOccupation");
 const formUserName = document.querySelector("#formUserName");
 const formUserOccupation = document.querySelector("#formUserOccupation");
 
+const imagePopup = document.querySelector("#imagePopup");
+
 // Объект с наполнением начальных карточек
 const cards = [
   {
@@ -105,22 +107,25 @@ trashButtons.forEach(function (button) {
 
 // НАЖАТИЕ НА ИЗОБРАЖЕНИЕ
 let fullcreenButtons = document.querySelectorAll(".element__fullscreen");
+// функция открытия полной версии изображения
+function openImage(event) {
+  const image = imagePopup.querySelector(".popup__image");
+  const imageData = {
+    url: event.target.getAttribute("src"),
+    caption:
+      event.target.parentElement.nextElementSibling.nextElementSibling
+        .firstElementChild.textContent,
+  };
+  image.setAttribute("src", imageData.url);
+  image.nextElementSibling.textContent = imageData.caption;
+  openPopup(imagePopup);
+}
 fullcreenButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
-    const image = imagePopup.querySelector(".popup__image");
-    const imageData = {
-      url: event.target.getAttribute("src"),
-      caption:
-        event.target.parentElement.nextElementSibling.nextElementSibling
-          .firstElementChild.textContent,
-    };
-    image.setAttribute("src", imageData.url);
-    image.nextElementSibling.textContent = imageData.caption;
-    openPopup(imagePopup);
+    openImage(event);
   });
 });
 // нажатие кнопки закрытия попапа изображения
-const imagePopup = document.querySelector("#imagePopup");
 const closeImagePopupButton = document.querySelector("#closeImagePopupButton");
 closeImagePopupButton.addEventListener("click", () => closePopup(imagePopup));
 
@@ -166,18 +171,19 @@ addCardformSubmitButton.addEventListener("click", function (event) {
   // добавление функционала новой карточке
   let newLikes = document.querySelectorAll(".element__like");
   let newLike = newLikes[newLikes.length - 1];
-  newLike.addEventListener('click', function() {
-    newLike.classList.toggle('element__like_active');
-  })
+  newLike.addEventListener("click", function () {
+    newLike.classList.toggle("element__like_active");
+  });
 
-  let newTrashButtons = document.querySelectorAll('.element__trash');
+  let newTrashButtons = document.querySelectorAll(".element__trash");
   let newTrashButton = newTrashButtons[newTrashButtons.length - 1];
-  newTrashButton.addEventListener('click', function() {
-    newTrashButton.closest('.element').remove();
-  })
+  newTrashButton.addEventListener("click", function () {
+    newTrashButton.closest(".element").remove();
+  });
 
   let newFullcreenButtons = document.querySelectorAll(".element__fullscreen");
   let newFullcreenButton = newFullcreenButtons[newTrashButtons.length - 1];
-  console.log(newFullcreenButton);
-
+  newFullcreenButton.addEventListener("click", function (event) {
+    openImage(event);
+  });
 });
