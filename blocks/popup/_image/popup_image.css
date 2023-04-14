@@ -1,0 +1,5 @@
+.popup__image {
+  background-color: rgba(1, 1, 1, 0.9);
+  max-width: 75vw;
+  max-height: 75vh;
+}
