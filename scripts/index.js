@@ -92,7 +92,7 @@ function createNewCard(card) {
   elementUrl.setAttribute("src", card.url);
   elementAlt.setAttribute("alt", card.alt);
   elementHeading.textContent = card.heading;
-  elements.append(elementTemplate);
+  elements.prepend(elementTemplate);
 }
 
 cards.forEach(createNewCard);
@@ -169,20 +169,17 @@ addCardformSubmitButton.addEventListener("click", function (event) {
   closePopup(addCardPopup);
 
   // добавление функционала новой карточке
-  let newLikes = document.querySelectorAll(".element__like");
-  let newLike = newLikes[newLikes.length - 1];
+  let newLike = document.querySelector(".element__like");
   newLike.addEventListener("click", function () {
     newLike.classList.toggle("element__like_active");
   });
 
-  let newTrashButtons = document.querySelectorAll(".element__trash");
-  let newTrashButton = newTrashButtons[newTrashButtons.length - 1];
+  let newTrashButton = document.querySelector(".element__trash");
   newTrashButton.addEventListener("click", function () {
     newTrashButton.closest(".element").remove();
   });
 
-  let newFullcreenButtons = document.querySelectorAll(".element__fullscreen");
-  let newFullcreenButton = newFullcreenButtons[newTrashButtons.length - 1];
+  let newFullcreenButton = document.querySelector('.element__fullscreen');
   newFullcreenButton.addEventListener("click", function (event) {
     openImage(event);
   });
