@@ -61,17 +61,17 @@ function closePopup(popup) {
 }
 
 // нажатие кнопки редактировать профиль
-editProfileButton.addEventListener("click", function () {
+editProfileButton.addEventListener("click", () => {
   openPopup(editProfilePopup);
 });
 
 // нажатие кнопки закрытыя редактирования профия
-closeEditProfilePopupButton.addEventListener("click", function () {
+closeEditProfilePopupButton.addEventListener("click", () => {
   closePopup(editProfilePopup);
 });
 
 // нажатие кнопки сохранить
-editProfileFormSubmitButton.addEventListener("click", function (event) {
+editProfileFormSubmitButton.addEventListener("click", (event) => {
   event.preventDefault();
   profileUserName.textContent = formUserName.value;
   profileUserOccupation.textContent = formUserOccupation.value;
@@ -94,12 +94,11 @@ function createNewCard(card) {
   elementHeading.textContent = card.heading;
   elements.prepend(elementTemplate);
 }
-
 cards.forEach(createNewCard);
 
 // ФУНКЦИОНАЛ УДАЛЕНИЯ КАРТОЧКИ
 let trashButtons = document.querySelectorAll(".element__trash");
-trashButtons.forEach(function (button) {
+trashButtons.forEach((button) => {
   button.addEventListener("click", function () {
     button.closest(".element").remove();
   });
@@ -131,8 +130,8 @@ closeImagePopupButton.addEventListener("click", () => closePopup(imagePopup));
 
 // ФУНКЦИОНАЛ ЛАЙКА
 let likes = document.querySelectorAll(".element__like");
-likes.forEach(function (button) {
-  button.addEventListener("click", function () {
+likes.forEach((button) => {
+  button.addEventListener("click", () => {
     button.classList.toggle("element__like_active");
   });
 });
@@ -144,21 +143,21 @@ const closeAddCardPopupButton = document.querySelector(
   "#closeAddCardPopupButton"
 );
 
-addCardButton.addEventListener("click", function () {
+addCardButton.addEventListener("click", () => {
   openPopup(addCardPopup);
 });
 
-closeAddCardPopupButton.addEventListener("click", function () {
+closeAddCardPopupButton.addEventListener("click", () => {
   closePopup(addCardPopup);
 });
 
 const addCardformSubmitButton = document.querySelector(
   "#addCardformSubmitButton"
 );
-const formCardName = document.querySelector("#formCardName");
-const formCardUrl = document.querySelector("#formCardUrl");
+let formCardName = document.querySelector("#formCardName");
+let formCardUrl = document.querySelector("#formCardUrl");
 
-addCardformSubmitButton.addEventListener("click", function (event) {
+addCardformSubmitButton.addEventListener("click", (event) => {
   event.preventDefault();
   const newCard = {
     url: formCardUrl.value,
@@ -167,20 +166,22 @@ addCardformSubmitButton.addEventListener("click", function (event) {
   };
   createNewCard(newCard);
   closePopup(addCardPopup);
+  formCardName.value = "";
+  formCardUrl.value = "";
 
   // добавление функционала новой карточке
   let newLike = document.querySelector(".element__like");
-  newLike.addEventListener("click", function () {
+  newLike.addEventListener("click", () => {
     newLike.classList.toggle("element__like_active");
   });
 
   let newTrashButton = document.querySelector(".element__trash");
-  newTrashButton.addEventListener("click", function () {
+  newTrashButton.addEventListener("click", () => {
     newTrashButton.closest(".element").remove();
   });
 
-  let newFullcreenButton = document.querySelector('.element__fullscreen');
-  newFullcreenButton.addEventListener("click", function (event) {
+  let newFullcreenButton = document.querySelector(".element__fullscreen");
+  newFullcreenButton.addEventListener("click", (event) => {
     openImage(event);
   });
 });
