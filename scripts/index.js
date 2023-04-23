@@ -97,7 +97,7 @@ function createNewCard(card) {
 cards.forEach(createNewCard);
 
 // ФУНКЦИОНАЛ УДАЛЕНИЯ КАРТОЧКИ
-let trashButtons = document.querySelectorAll(".element__trash");
+const trashButtons = document.querySelectorAll(".element__trash");
 trashButtons.forEach((button) => {
   button.addEventListener("click", function () {
     button.closest(".element").remove();
@@ -105,7 +105,7 @@ trashButtons.forEach((button) => {
 });
 
 // НАЖАТИЕ НА ИЗОБРАЖЕНИЕ
-let fullcreenButtons = document.querySelectorAll(".element__fullscreen");
+const fullcreenButtons = document.querySelectorAll(".element__fullscreen");
 // функция открытия полной версии изображения
 function openImage(event) {
   const image = imagePopup.querySelector(".popup__image");
@@ -129,7 +129,7 @@ const closeImagePopupButton = document.querySelector("#closeImagePopupButton");
 closeImagePopupButton.addEventListener("click", () => closePopup(imagePopup));
 
 // ФУНКЦИОНАЛ ЛАЙКА
-let likes = document.querySelectorAll(".element__like");
+const likes = document.querySelectorAll(".element__like");
 likes.forEach((button) => {
   button.addEventListener("click", () => {
     button.classList.toggle("element__like_active");
