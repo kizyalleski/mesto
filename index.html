@@ -9,6 +9,7 @@
   <meta name="author" content="Максим Успенский">
   <title>Mesto</title>
   <link rel="stylesheet" href="./pages/index.css">
+  <script src="./scripts/cards.js" defer></script>
   <script src="./scripts/index.js" defer></script>
 </head>
 
@@ -30,22 +31,23 @@
         <button id="addCardButton" type="button" class="profile__add-button"></button>
       </section>
       <section id="elements" class="elements">
-        <template id="elementTemplate">
-          <article class="element">
-            <button class="element__fullscreen"> <img class="element__image"></button>
-            <button type="button" class="element__trash"></button>
-            <div class="element__description">
-              <h2 class="element__name"></h2>
-              <button type="button" class="element__like"></button>
-            </div>
-          </article>
-        </template>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
+  <!-- Шаблон карточки -->
+  <template id="elementTemplate">
+    <article class="element">
+      <button class="element__fullscreen"> <img class="element__image"></button>
+      <button type="button" class="element__trash"></button>
+      <div class="element__description">
+        <h2 class="element__name"></h2>
+        <button type="button" class="element__like"></button>
+      </div>
+    </article>
+  </template>
   <!-- Модальные окна -->
   <div id="editProfilePopup" class="popup">
     <div class="popup__container popup__container_form">

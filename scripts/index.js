@@ -1,51 +1,12 @@
 const editingProfilePopup = document.querySelector("#editProfilePopup");
 const editingProfileButton = document.querySelector("#editProfileButton");
-const closingEditingProfilePopupButton = document.querySelector(
-  "#closeEditProfilePopupButton"
-);
-const editingProfileFormSubmitButton = document.querySelector(
-  "#editProfileFormSubmitButton"
-);
+const closingEditingProfilePopupButton = document.querySelector("#closeEditProfilePopupButton");
+const editingProfileFormSubmitButton = document.querySelector("#editProfileFormSubmitButton");
 const profileUserName = document.querySelector("#profileUserName");
 const profileUserOccupation = document.querySelector("#profileUserOccupation");
 const formUserName = document.querySelector("#formUserName");
 const formUserOccupation = document.querySelector("#formUserOccupation");
-
 const imagePopup = document.querySelector("#imagePopup");
-
-// Объект с наполнением начальных карточек
-const cards = [
-  {
-    url: "./images/tbilisi.jpg",
-    alt: "Вид на Тбилиси",
-    heading: "Тбилиси",
-  },
-  {
-    url: "./images/yerevan.jpg",
-    alt: "Вид на Ереван",
-    heading: "Ереван",
-  },
-  {
-    url: "./images/istanbul.jpg",
-    alt: "Вид на Стамбул",
-    heading: "Стамбул",
-  },
-  {
-    url: "./images/kazakhstan.jpg",
-    alt: "Вид на Казахстан",
-    heading: "Казахстан",
-  },
-  {
-    url: "./images/uzbekistan.jpg",
-    alt: "Площадь Регистан в Узбекистане",
-    heading: "Узбекистан",
-  },
-  {
-    url: "./images/montenegro.jpg",
-    alt: "Которский замок на фоне гор и акватории",
-    heading: "Черногория",
-  },
-];
 
 // функция открытия попапа
 function openPopup(popup) {
@@ -80,7 +41,6 @@ editingProfileFormSubmitButton.addEventListener("click", (event) => {
 ////////////////////////////////
 
 // добавление на страницу начальных карточек
-
 function createNewCard(card) {
   const elementsSection = document.querySelector('.elements');
   const elementTemplate = document
@@ -90,7 +50,7 @@ function createNewCard(card) {
   const elementAlt = elementTemplate.querySelector(".element__image");
   const elementHeading = elementTemplate.querySelector(".element__name");
   elementUrl.setAttribute("src", card.url);
-  elementAlt.setAttribute("alt", card.alt);
+  elementAlt.setAttribute("alt", card.heading);
   elementHeading.textContent = card.heading;
   elementsSection.prepend(elementTemplate);
 }
