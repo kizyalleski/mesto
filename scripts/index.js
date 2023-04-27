@@ -7,6 +7,9 @@ const profileUserOccupation = document.querySelector("#profileUserOccupation");
 const formUserName = document.querySelector("#formUserName");
 const formUserOccupation = document.querySelector("#formUserOccupation");
 const imagePopup = document.querySelector("#imagePopup");
+const cardsSection = document.querySelector('.elements');
+const elementTemplate = document.querySelector("#elementTemplate");
+
 
 // функция открытия попапа
 function openPopup(popup) {
@@ -40,68 +43,59 @@ editingProfileFormSubmitButton.addEventListener("click", (event) => {
 
 ////////////////////////////////
 
-// добавление на страницу начальных карточек
+// функция создания карточки
 function createNewCard(card) {
-  const elementsSection = document.querySelector('.elements');
-  const elementTemplate = document
-    .querySelector("#elementTemplate")
-    .content.cloneNode(true);
-  const elementUrl = elementTemplate.querySelector(".element__image");
-  const elementAlt = elementTemplate.querySelector(".element__image");
-  const elementHeading = elementTemplate.querySelector(".element__name");
+  const element = elementTemplate.content.cloneNode(true);
+  const elementUrl = element.querySelector(".element__image");
+  const elementAlt = element.querySelector(".element__image");
+  const elementHeading = element.querySelector(".element__name");
   elementUrl.setAttribute("src", card.url);
   elementAlt.setAttribute("alt", card.heading);
   elementHeading.textContent = card.heading;
-  elementsSection.prepend(elementTemplate);
-}
-cards.forEach(createNewCard);
-
-// ФУНКЦИОНАЛ УДАЛЕНИЯ КАРТОЧКИ
-const trashButtons = document.querySelectorAll(".element__trash");
-trashButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    button.closest(".element").remove();
+  // функционал удаления карточки
+  const trashButton = element.querySelector('.element__trash');
+  trashButton.addEventListener('click', (event) => {
+    event.target.closest('.element').remove();
   });
-});
-
-// НАЖАТИЕ НА ИЗОБРАЖЕНИЕ
-const increaseImageButtons = document.querySelectorAll(".element__fullscreen");
-// функция открытия полной версии изображения
-function openImage(event) {
-  const image = imagePopup.querySelector(".popup__image");
-  const imageData = {
-    url: event.target.getAttribute("src"),
-    caption:
-      event.target.parentElement.nextElementSibling.nextElementSibling
-        .firstElementChild.textContent,
-  };
-  image.setAttribute("src", imageData.url);
-  image.nextElementSibling.textContent = imageData.caption;
-  openPopup(imagePopup);
-}
-increaseImageButtons.forEach((button) => {
-  button.addEventListener("click", (event) => {
+  // функционал нажатия на изображение карточки
+  const increaseImageButton = element.querySelector('.element__fullscreen');
+  increaseImageButton.addEventListener('click', (event) => {
     openImage(event);
   });
-});
-// нажатие кнопки закрытия попапа изображения
-const closingImagePopupButton = document.querySelector("#closeImagePopupButton");
-closingImagePopupButton.addEventListener("click", () => closePopup(imagePopup));
-
-// ФУНКЦИОНАЛ ЛАЙКА
-const likes = document.querySelectorAll(".element__like");
-likes.forEach((button) => {
-  button.addEventListener("click", () => {
-    button.classList.toggle("element__like_active");
+  // нажатие кнопки закрытия попапа изображения
+  const closingImagePopupButton = document.querySelector("#closeImagePopupButton");
+  closingImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
+  // функционал лайка
+  const likeButton = element.querySelector('.element__like');
+  likeButton.addEventListener('click', (event) => {
+    event.target.classList.toggle('element__like_active');
   });
-});
+  return element;
+}
+// функция добавления карточки на страницу
+function renderCard(card) {
+  cardsSection.prepend(createNewCard(card));
+}
+// добавление начальных карточек
+cards.forEach(renderCard);
+
+function openImage(event) {
+  const image = imagePopup.querySelector(".popup__image");
+  const name = imagePopup.querySelector('.popup__caption');
+  const imageData = {
+    url: event.target.getAttribute("src"),
+    caption: event.target.parentElement.nextElementSibling.nextElementSibling.firstElementChild.textContent,
+  };
+  image.setAttribute("src", imageData.url);
+  name.textContent = imageData.caption;
+  openPopup(imagePopup);
+}
+
 
 // ДОБАВЛЕНИЕ НОВЫХ КАРТОЧЕК
 const additionCardPopup = document.querySelector("#addCardPopup");
 const additionCardButton = document.querySelector("#addCardButton");
-const closingAdditionCardPopupButton = document.querySelector(
-  "#closeAddCardPopupButton"
-);
+const closingAdditionCardPopupButton = document.querySelector("#closeAddCardPopupButton");
 
 additionCardButton.addEventListener("click", () => {
   openPopup(additionCardPopup);
@@ -111,37 +105,21 @@ closingAdditionCardPopupButton.addEventListener("click", () => {
   closePopup(additionCardPopup);
 });
 
-const additionCardformSubmitButton = document.querySelector(
-  "#addCardformSubmitButton"
+const additionCardFormSubmitButton = document.querySelector(
+  "#addCardFormSubmitButton"
 );
 let formCardName = document.querySelector("#formCardName");
 let formCardUrl = document.querySelector("#formCardUrl");
 
-additionCardformSubmitButton.addEventListener("click", (event) => {
+additionCardFormSubmitButton.addEventListener("click", (event) => {
   event.preventDefault();
   const newCard = {
     url: formCardUrl.value,
     alt: "Добавленное изображение",
     heading: formCardName.value,
   };
-  createNewCard(newCard);
+  renderCard(newCard);
   closePopup(addCardPopup);
   formCardName.value = "";
   formCardUrl.value = "";
-
-  // добавление функционала новой карточке
-  let like = document.querySelector(".element__like");
-  like.addEventListener("click", () => {
-    like.classList.toggle("element__like_active");
-  });
-
-  let trashButton = document.querySelector(".element__trash");
-  trashButton.addEventListener("click", () => {
-    trashButton.closest(".element").remove();
-  });
-
-  let increaseImageButton = document.querySelector(".element__fullscreen");
-  increaseImageButton.addEventListener("click", (event) => {
-    openImage(event);
-  });
 });
