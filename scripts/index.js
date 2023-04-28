@@ -1,15 +1,16 @@
 const editingProfilePopup = document.querySelector("#editProfilePopup");
 const editingProfileButton = document.querySelector("#editProfileButton");
-const closingEditingProfilePopupButton = document.querySelector("#closeEditProfilePopupButton");
+const closingEditingProfilePopupButton = document.querySelector(
+  "#closeEditProfilePopupButton"
+);
 const editingProfileFormSubmitButton = document.querySelector("#editProfileFormSubmitButton");
 const profileUserName = document.querySelector("#profileUserName");
 const profileUserOccupation = document.querySelector("#profileUserOccupation");
 const formUserName = document.querySelector("#formUserName");
 const formUserOccupation = document.querySelector("#formUserOccupation");
 const imagePopup = document.querySelector("#imagePopup");
-const cardsSection = document.querySelector('.elements');
+const cardsSection = document.querySelector(".elements");
 const elementTemplate = document.querySelector("#elementTemplate");
-
 
 // функция открытия попапа
 function openPopup(popup) {
@@ -53,22 +54,26 @@ function createNewCard(card) {
   elementAlt.setAttribute("alt", card.heading);
   elementHeading.textContent = card.heading;
   // функционал удаления карточки
-  const trashButton = element.querySelector('.element__trash');
-  trashButton.addEventListener('click', (event) => {
-    event.target.closest('.element').remove();
+  const trashButton = element.querySelector(".element__trash");
+  trashButton.addEventListener("click", (event) => {
+    event.target.closest(".element").remove();
   });
   // функционал нажатия на изображение карточки
-  const increaseImageButton = element.querySelector('.element__fullscreen');
-  increaseImageButton.addEventListener('click', (event) => {
+  const increaseImageButton = element.querySelector(".element__fullscreen");
+  increaseImageButton.addEventListener("click", (event) => {
     openImage(event);
   });
   // нажатие кнопки закрытия попапа изображения
-  const closingImagePopupButton = document.querySelector("#closeImagePopupButton");
-  closingImagePopupButton.addEventListener('click', () => closePopup(imagePopup));
+  const closingImagePopupButton = document.querySelector(
+    "#closeImagePopupButton"
+  );
+  closingImagePopupButton.addEventListener("click", () =>
+    closePopup(imagePopup)
+  );
   // функционал лайка
-  const likeButton = element.querySelector('.element__like');
-  likeButton.addEventListener('click', (event) => {
-    event.target.classList.toggle('element__like_active');
+  const likeButton = element.querySelector(".element__like");
+  likeButton.addEventListener("click", (event) => {
+    event.target.classList.toggle("element__like_active");
   });
   return element;
 }
@@ -81,21 +86,22 @@ cards.forEach(renderCard);
 
 function openImage(event) {
   const image = imagePopup.querySelector(".popup__image");
-  const name = imagePopup.querySelector('.popup__caption');
+  const name = imagePopup.querySelector(".popup__caption");
   const imageData = {
     url: event.target.getAttribute("src"),
-    caption: event.target.parentElement.nextElementSibling.nextElementSibling.firstElementChild.textContent,
+    caption: event.target.getAttribute("alt"),
   };
   image.setAttribute("src", imageData.url);
   name.textContent = imageData.caption;
   openPopup(imagePopup);
 }
 
-
 // ДОБАВЛЕНИЕ НОВЫХ КАРТОЧЕК
 const additionCardPopup = document.querySelector("#addCardPopup");
 const additionCardButton = document.querySelector("#addCardButton");
-const closingAdditionCardPopupButton = document.querySelector("#closeAddCardPopupButton");
+const closingAdditionCardPopupButton = document.querySelector(
+  "#closeAddCardPopupButton"
+);
 
 additionCardButton.addEventListener("click", () => {
   openPopup(additionCardPopup);
@@ -108,10 +114,11 @@ closingAdditionCardPopupButton.addEventListener("click", () => {
 const additionCardFormSubmitButton = document.querySelector(
   "#addCardFormSubmitButton"
 );
-let formCardName = document.querySelector("#formCardName");
-let formCardUrl = document.querySelector("#formCardUrl");
 
-additionCardFormSubmitButton.addEventListener("click", (event) => {
+const formCardName = document.querySelector("#formCardName");
+const formCardUrl = document.querySelector("#formCardUrl");
+
+addCardPopup.addEventListener("submit", (event) => {
   event.preventDefault();
   const newCard = {
     url: formCardUrl.value,
