@@ -1,27 +1,27 @@
 // Массив объектов с наполнением начальных карточек
 const cards = [
   {
-    url: "./images/tbilisi.jpg",
-    heading: "Тбилиси",
+    name: "Тбилиси",
+    link: "./images/tbilisi.jpg",
   },
   {
-    url: "./images/yerevan.jpg",
-    heading: "Ереван",
+    name: "Ереван",
+    link: "./images/yerevan.jpg",
   },
   {
-    url: "./images/istanbul.jpg",
-    heading: "Стамбул",
+    name: "Стамбул",
+    link: "./images/istanbul.jpg",
   },
   {
-    url: "./images/kazakhstan.jpg",
-    heading: "Казахстан",
+    name: "Казахстан",
+    link: "./images/kazakhstan.jpg",
   },
   {
-    url: "./images/uzbekistan.jpg",
-    heading: "Узбекистан",
+    name: "Узбекистан",
+    link: "./images/uzbekistan.jpg",
   },
   {
-    url: "./images/montenegro.jpg",
-    heading: "Черногория",
+    name: "Черногория",
+    link: "./images/montenegro.jpg",
   },
 ];

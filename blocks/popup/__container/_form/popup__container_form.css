@@ -1,3 +1,4 @@
 .popup__container_form {
+  max-width: 430px;
   min-width: 282px;
 }
