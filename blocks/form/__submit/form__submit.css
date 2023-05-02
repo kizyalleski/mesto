@@ -23,9 +23,8 @@
 @media (max-width: 600px) {
   .form__submit {
     padding: 14px 0 14px;
-    margin-top: 42px;
+    margin-top: 45px;
     font-size: 14px;
     line-height: 17px;
-    margin-top: 45px;
   }
 }
