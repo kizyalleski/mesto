@@ -1,8 +1,6 @@
 const editingProfilePopup = document.querySelector("#editProfilePopup");
 const editingProfileButton = document.querySelector("#editProfileButton");
-const editingProfileFormSubmitButton = document.querySelector(
-  "#editProfileFormSubmitButton"
-);
+const editingProfileForm = document.querySelector("#editingProfileForm");
 const profileUserName = document.querySelector("#profileUserName");
 const profileUserOccupation = document.querySelector("#profileUserOccupation");
 const formUserName = document.querySelector("#formUserName");
@@ -42,7 +40,7 @@ closingPopupButtons.forEach((button) =>
 );
 
 // нажатие кнопки сохранить
-editingProfileFormSubmitButton.addEventListener("click", (event) => {
+editingProfileForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileUserName.textContent = formUserName.value;
   profileUserOccupation.textContent = formUserOccupation.value;
@@ -54,11 +52,10 @@ editingProfileFormSubmitButton.addEventListener("click", (event) => {
 // функция создания карточки
 function createNewCard(card) {
   const element = elementTemplate.content.cloneNode(true);
-  const elementUrl = element.querySelector(".element__image");
-  const elementAlt = elementUrl;
+  const elementImage = element.querySelector(".element__image");
   const elementHeading = element.querySelector(".element__name");
-  elementUrl.setAttribute("src", card.link);
-  elementAlt.setAttribute("alt", card.name);
+  elementImage.setAttribute("src", card.link);
+  elementImage.setAttribute("alt", card.name);
   elementHeading.textContent = card.name;
   // функционал удаления карточки
   const trashButton = element.querySelector(".element__trash");
@@ -103,10 +100,6 @@ const additionCardButton = document.querySelector("#addCardButton");
 additionCardButton.addEventListener("click", () => {
   openPopup(additionCardPopup);
 });
-
-const additionCardFormSubmitButton = document.querySelector(
-  "#addCardFormSubmitButton"
-);
 
 const formCardName = document.querySelector("#formCardName");
 const formCardUrl = document.querySelector("#formCardUrl");

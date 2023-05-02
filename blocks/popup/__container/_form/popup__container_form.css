@@ -1,4 +1,9 @@
 .popup__container_form {
-  max-width: 430px;
-  min-width: 282px;
+  width: 430px;
+}
+
+@media  (max-width: 600px) {
+  .popup__container_form {
+    width: 282px;
+  }
 }
