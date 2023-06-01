@@ -25,27 +25,25 @@ const isInputValid = (input, inputError) => {
   }
 };
 
-// const toggleButtonState = (form, button) => {
-//   if (!form.checkValidity()) {
-//     button.classList.add(`${config.inactiveButtonClass}`);
-//     button.setAttribute('disabled', 'true');
-//   } else {
-//     button.classList.remove(`${config.inactiveButtonClass}`);
-//     button.removeAttribute('disabled');
-//   }
-// };
+const hasInvalidInputs = (inputList) => {
+  return Array.from(inputList).some((input) => !input.validity.valid);
+};
 
-const hasInvalidInputs = inputList => {
-  return Array.from(inputList).some( input => !input.validity.valid);
+const disableButton = (button) => {
+  button.classList.add(`${config.inactiveButtonClass}`);
+  button.disabled = true;
+};
+
+const enableButton = (button) => {
+  button.classList.remove(`${config.inactiveButtonClass}`);
+  button.disabled = false;
 };
 
 const toggleButtonState = (inputList, button) => {
   if (hasInvalidInputs(inputList)) {
-    button.classList.add(`${config.inactiveButtonClass}`);
-    button.disabled = true;
+    disableButton(button);
   } else {
-    button.classList.remove(`${config.inactiveButtonClass}`);
-    button.disabled = false;
+    enableButton(button);
   }
 };
 
@@ -66,4 +64,8 @@ formList.forEach((form) => {
   const inputList = form.querySelectorAll(`${config.inputSelector}`);
   const submitButton = form.querySelector(`${config.submitButtonSelector}`);
   setEventListeners(form, submitButton, inputList);
+  toggleButtonState(inputList, submitButton);
+  if (form.id === 'editingProfileForm') {
+    enableButton(submitButton);
+  }
 });
