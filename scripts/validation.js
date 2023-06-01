@@ -1,5 +1,6 @@
 const config = {
   formSelector: ".form",
+  editingProfileFormId: 'editingProfileForm',
   inputSelector: ".form__input",
   invalidInputClass: "form__input_invalid",
   submitButtonSelector: ".form__submit",
@@ -65,7 +66,7 @@ formList.forEach((form) => {
   const submitButton = form.querySelector(`${config.submitButtonSelector}`);
   setEventListeners(form, submitButton, inputList);
   toggleButtonState(inputList, submitButton);
-  if (form.id === 'editingProfileForm') {
+  if (form.id === config.editingProfileFormId) {
     enableButton(submitButton);
   }
 });
