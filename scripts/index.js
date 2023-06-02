@@ -20,6 +20,7 @@ function openPopup(popup) {
 // функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+
 }
 
 // функция подстановки значений в форму
@@ -34,10 +35,27 @@ editingProfileButton.addEventListener("click", () => {
   openPopup(editingProfilePopup);
 });
 
-// функционал закрытия любого попапа
+// функционал закрытия любого попапа крестиком
 closingPopupButtons.forEach((button) =>
   button.addEventListener("click", () => closePopup(button.closest(".popup")))
 );
+
+// функционал закрытия попапа при клике на оверлей
+const popupList = document.querySelectorAll('.popup');
+popupList.forEach(popup => {
+  popup.addEventListener("mousedown", e => {
+    if (e.target.classList.contains('popup_opened')) {
+      closePopup(e.target);
+    }
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape ' || e.keyCode === 27) {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  }
+});
 
 // нажатие кнопки сохранить
 editingProfileForm.addEventListener("submit", (event) => {
