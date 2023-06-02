@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./pages/index.css">
   <script src="./scripts/cards.js" defer></script>
   <script src="./scripts/index.js" defer></script>
+  <script src="./scripts/validation.js" defer></script>
 </head>
 
 <body class="page">
@@ -54,9 +55,11 @@
       <button id="closeEditProfilePopupButton" type="button" class="popup__close-button"></button>
       <h3 class="popup__heading">Редактировать профиль</h3>
       <form name="urer-information-form" id="editingProfileForm" class="form">
-        <input type="text" id="formUserName" name="user-name" class="form__input" placeholder="Имя">
-        <input type="text" id="formUserOccupation" name="user-occupation" class="form__input"
-          placeholder="Род деятельности">
+        <input type="text" id="formUserName" name="userNameInput" class="form__input" placeholder="Имя" required minlength="2" maxlength="40">
+        <span class="formUserName-error form__input_type_error"></span>
+        <input type="text" id="formUserOccupation" name="userOccupationInput" class="form__input"
+          placeholder="Род деятельности" required minlength="2" maxlength="200">
+        <span class="formUserOccupation-error form__input_type_error"></span>
         <button type="submit" class="form__submit">Сохранить</button>
       </form>
     </div>
@@ -66,8 +69,11 @@
       <button id="closeAddCardPopupButton" type="button" class="popup__close-button"></button>
       <h3 class="popup__heading">Новое место</h3>
       <form name="add-card-form" id="addCardForm" class="form">
-        <input type="text" id="formCardName" name="card-name" class="form__input" placeholder="Название">
-        <input type="text" id="formCardUrl" name="card-url" class="form__input" placeholder="Ссылка на картинку">
+        <input type="text" id="formCardName" name="card-name-input" class="form__input" placeholder="Название"
+        required minlength="2" maxlength="30">
+        <span class="formCardName-error form__input_type_error"></span>
+        <input type="url" id="formCardUrl" name="card-url-input" class="form__input" placeholder="Ссылка на картинку" required>
+        <span class="formCardUrl-error form__input_type_error"></span>
         <button type="submit" class="form__submit">Создать</button>
       </form>
     </div>

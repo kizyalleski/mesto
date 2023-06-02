@@ -12,15 +12,37 @@ const image = imagePopup.querySelector(".popup__image");
 const imageName = imagePopup.querySelector(".popup__caption");
 const closingPopupButtons = document.querySelectorAll(".popup__close-button");
 
-// функция открытия попапа
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-}
+// функция закрытия попапа принажатии на кнопку escape
+const closePopupEsc = (e) => {
+  if (e.key === "Escape" || e.keyCode === 27) {
+    const popup = document.querySelector(".popup_opened");
+    closePopup(popup);
+  }
+};
+
+// функция очистки полей ввода и текста ошибок валидации
+const resetInputs = (errorList) => {
+  const inputList = document.querySelectorAll('.form__input');
+  inputList.forEach( input => {
+    input.value = '';
+    input.classList.remove('form__input_invalid');
+    input.nextElementSibling.textContent = '';
+  });
+};
 
 // функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupEsc);
+  resetInputs();
 }
+
+// функция открытия попапа
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener('keydown', closePopupEsc);
+}
+
 
 // функция подстановки значений в форму
 function setFields() {
@@ -34,10 +56,20 @@ editingProfileButton.addEventListener("click", () => {
   openPopup(editingProfilePopup);
 });
 
-// функционал закрытия любого попапа
+// функционал закрытия любого попапа крестиком
 closingPopupButtons.forEach((button) =>
   button.addEventListener("click", () => closePopup(button.closest(".popup")))
 );
+
+// функционал закрытия попапа при клике на оверлей
+const popupList = document.querySelectorAll(".popup");
+popupList.forEach((popup) => {
+  popup.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("popup_opened")) {
+      closePopup(e.target);
+    }
+  });
+});
 
 // нажатие кнопки сохранить
 editingProfileForm.addEventListener("submit", (event) => {
