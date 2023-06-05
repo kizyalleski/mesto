@@ -1,28 +1,27 @@
-const config = {
+const configuration = {
   formSelector: ".form",
-  editingProfileFormId: 'editingProfileForm',
+  editingProfileFormId: "editingProfileForm",
   inputSelector: ".form__input",
   invalidInputClass: "form__input_invalid",
   submitButtonSelector: ".form__submit",
   inactiveButtonClass: "form__submit_disabled",
 };
-const formList = document.querySelectorAll(`${config.formSelector}`);
 
-const showInputError = (input, inputError) => {
+const showInputError = (input, inputError, config) => {
   input.classList.add(`${config.invalidInputClass}`);
   inputError.textContent = input.validationMessage;
 };
 
-const hideInputError = (input, inputError) => {
+const hideInputError = (input, inputError, config) => {
   input.classList.remove(`${config.invalidInputClass}`);
   inputError.textContent = "";
 };
 
-const isInputValid = (input, inputError) => {
+const isInputValid = (input, inputError, config) => {
   if (!input.validity.valid) {
-    showInputError(input, inputError);
+    showInputError(input, inputError, config);
   } else {
-    hideInputError(input, inputError);
+    hideInputError(input, inputError, config);
   }
 };
 
@@ -30,43 +29,40 @@ const hasInvalidInputs = (inputList) => {
   return Array.from(inputList).some((input) => !input.validity.valid);
 };
 
-const disableButton = (button) => {
+const disableButton = (button, config) => {
   button.classList.add(`${config.inactiveButtonClass}`);
   button.disabled = true;
 };
 
-const enableButton = (button) => {
+const enableButton = (button, config) => {
   button.classList.remove(`${config.inactiveButtonClass}`);
   button.disabled = false;
 };
 
-const toggleButtonState = (inputList, button) => {
+const toggleButtonState = (inputList, button, config) => {
   if (hasInvalidInputs(inputList)) {
-    disableButton(button);
+    disableButton(button, config);
   } else {
-    enableButton(button);
+    enableButton(button, config);
   }
 };
 
-const enableValidation = (input, inputError, submitButton, inputList) => {
-  isInputValid(input, inputError);
-  toggleButtonState(inputList, submitButton);
-};
-
-const setEventListeners = (form, submitButton, inputList) => {
+const setEventListeners = (form, inputList, button, config) => {
   form.addEventListener("input", (e) => {
     const input = e.target;
     const inputError = form.querySelector(`.${input.id}-error`);
-    enableValidation(input, inputError, submitButton, inputList);
+    isInputValid(input, inputError, config);
+    toggleButtonState(inputList, button, config);
   });
 };
 
-formList.forEach((form) => {
-  const inputList = form.querySelectorAll(`${config.inputSelector}`);
-  const submitButton = form.querySelector(`${config.submitButtonSelector}`);
-  setEventListeners(form, submitButton, inputList);
-  toggleButtonState(inputList, submitButton);
-  if (form.id === config.editingProfileFormId) {
-    enableButton(submitButton);
-  }
-});
+const enableValidation = (config) => {
+  const formList = document.querySelectorAll(`${config.formSelector}`);
+  formList.forEach((form) => {
+    const inputList = form.querySelectorAll(`${config.inputSelector}`);
+    const submitButton = form.querySelector(`${config.submitButtonSelector}`);
+    setEventListeners(form, inputList, submitButton, config);
+  });
+};
+
+enableValidation(configuration);
