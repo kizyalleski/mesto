@@ -10,28 +10,39 @@ const elementTemplate = document.querySelector("#elementTemplate");
 const image = imagePopup.querySelector(".popup__image");
 const imageName = imagePopup.querySelector(".popup__caption");
 const popupList = document.querySelectorAll(".popup");
-// const closingPopupButtons = document.querySelectorAll(".popup__close-button");
 
-// функция закрытия попапа при нажатии на кнопку escape
-const closePopupEsc = (e) => {
-  if (e.key === "Escape" || e.keyCode === 27) {
-    const popup = document.querySelector(".popup_opened");
-    closePopup(popup);
-  }
+// функция закрытия попапа
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupEsc);
+}
+
+const hideErrors = (inputs, errors, config) => {
+  inputs.forEach( input => {
+    input.classList.remove(config.invalidInputClass);
+  });
+  errors.forEach( error => {
+    error.textContent = '';
+  });
 };
 
 // функция очистки полей ввода и текста ошибок валидации
 const resetInputs = (popup) => {
   const form = popup.querySelector('.form');
   form.reset();
+  const inputs = form.querySelectorAll('.form__input');
+  const errors = form.querySelectorAll('.form__error');
+  hideErrors(inputs, errors, configuration);
 };
 
-// функция закрытия попапа
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupEsc);
-  resetInputs(popup);
-}
+// функция закрытия попапа при нажатии на кнопку escape
+const closePopupEsc = (e) => {
+  if (e.key === "Escape" || e.keyCode === 27) {
+    const popup = document.querySelector(".popup_opened");
+    closePopup(popup);
+    resetInputs(popup);
+  }
+};
 
 // функция открытия попапа
 function openPopup(popup) {
@@ -53,15 +64,16 @@ editingProfileButton.addEventListener("click", () => {
   openPopup(editingProfilePopup);
 });
 
-
 // закрытие попапа при клике на керстик или оверлей
 popupList.forEach( popup => {
   popup.addEventListener('mousedown', e => {
     if (e.target.classList.contains('popup_opened')) {
       closePopup(popup);
+      resetInputs(popup);
     }
     if (e.target.classList.contains('popup__close-button')) {
       closePopup(popup);
+      resetInputs(popup);
     }
   });
 });
