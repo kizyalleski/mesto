@@ -17,30 +17,11 @@ function closePopup(popup) {
   document.removeEventListener("keydown", closePopupEsc);
 }
 
-const hideErrors = (inputs, errors, config) => {
-  inputs.forEach( input => {
-    input.classList.remove(config.invalidInputClass);
-  });
-  errors.forEach( error => {
-    error.textContent = '';
-  });
-};
-
-// функция очистки полей ввода и текста ошибок валидации
-const resetInputs = (popup) => {
-  const form = popup.querySelector('.form');
-  form.reset();
-  const inputs = form.querySelectorAll('.form__input');
-  const errors = form.querySelectorAll('.form__error');
-  hideErrors(inputs, errors, configuration);
-};
-
 // функция закрытия попапа при нажатии на кнопку escape
 const closePopupEsc = (e) => {
   if (e.key === "Escape" || e.keyCode === 27) {
     const popup = document.querySelector(".popup_opened");
     closePopup(popup);
-    resetInputs(popup);
   }
 };
 
@@ -58,10 +39,32 @@ function setUserInfoFormFields(form, name, occupation) {
   userOccupationInput.value = occupation.textContent;
 }
 
+// функция удаления текста ошибок
+const hideErrors = (inputsAndErrors, config) => {
+  const inputs = inputsAndErrors.inputs;
+  const errors = inputsAndErrors.errors;
+  inputs.forEach( input => {
+    input.classList.remove(config.invalidInputClass);
+  });
+  errors.forEach( error => {
+    error.textContent = '';
+  });
+};
+
+// функция получения инпутов и их ошибок
+const getInputsAndErrors = popup => {
+  const inputsAndErrors = {
+    inputs: popup.querySelectorAll('.form__input'),
+    errors: popup.querySelectorAll('.form__error')
+  };
+  return inputsAndErrors;
+}
+
 // нажатие кнопки редактировать профиль
 editingProfileButton.addEventListener("click", () => {
   setUserInfoFormFields(userInfoForm, profileUserName, profileUserOccupation);
   openPopup(editingProfilePopup);
+  hideErrors(getInputsAndErrors(editingProfilePopup), configuration);
 });
 
 // закрытие попапа при клике на керстик или оверлей
@@ -69,11 +72,9 @@ popupList.forEach( popup => {
   popup.addEventListener('mousedown', e => {
     if (e.target.classList.contains('popup_opened')) {
       closePopup(popup);
-      resetInputs(popup);
     }
     if (e.target.classList.contains('popup__close-button')) {
       closePopup(popup);
-      resetInputs(popup);
     }
   });
 });
@@ -137,8 +138,16 @@ const additionCardPopup = document.querySelector("#addCardPopup");
 const additionCardForm = document.querySelector("#addCardForm");
 const additionCardButton = document.querySelector("#addCardFormButton");
 
+// функция очистки полей ввода и текста ошибок валидации
+const resetInputs = (popup) => {
+  const form = popup.querySelector('.form');
+  form.reset();
+  hideErrors(getInputsAndErrors(popup), configuration);
+};
+
 additionCardButton.addEventListener("click", () => {
   openPopup(additionCardPopup);
+  resetInputs(additionCardPopup);
 });
 
 const formCardName = document.querySelector("#formCardName");
