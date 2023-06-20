@@ -30,9 +30,19 @@ export default class Card {
   }
 
   _setEventListeners() {
+    // лайк
     this._likeElement = this._element.querySelector('.element__like');
     this._likeElement.addEventListener('click', () => {
       this._toggleLikeState();
     });
+    // удаление карточки
+    this._deletionElement = this._element.querySelector('.element__trash');
+    this._deletionElement.addEventListener('click', () => {
+      this._deleteElement();
+    });
+  }
+
+  _deleteElement() {
+    this._element.remove();
   }
 };
