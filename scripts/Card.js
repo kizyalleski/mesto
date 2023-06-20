@@ -20,6 +20,19 @@ export default class Card {
     this._element.querySelector('.element__image').src = this._link;
     this._element.querySelector('.element__name').textContent = this._name;
 
+    this._setEventListeners();
+
     return this._element;
+  }
+
+  _toggleLikeState() {
+    this._likeElement.classList.toggle('element__like_active');
+  }
+
+  _setEventListeners() {
+    this._likeElement = this._element.querySelector('.element__like');
+    this._likeElement.addEventListener('click', () => {
+      this._toggleLikeState();
+    });
   }
 };
