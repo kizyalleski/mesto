@@ -1,13 +1,15 @@
+import { openPopup, imagePopup, imagePopupUrl, imagePopupName } from "./index.js";
+
 export default class Card {
-  constructor(data,  selector) {
+  constructor(data, selector) {
     this._link = data.link;
     this._name = data.name;
-    this._selector = selector;
+    this._elementSelector = selector;
   }
 
   _getTemplate() {
     const cardElement = document
-    .querySelector(this._selector)
+    .querySelector(this._elementSelector)
     .content
     .querySelector('.element')
     .cloneNode(true);
@@ -40,9 +42,20 @@ export default class Card {
     this._deletionElement.addEventListener('click', () => {
       this._deleteElement();
     });
+    // открытие полной версии картинки
+    this._increaseImageButton = this._element.querySelector('.element__fullscreen');
+    this._increaseImageButton.addEventListener('click', () => {
+      this._openImage();
+    });
   }
 
   _deleteElement() {
     this._element.remove();
+  }
+
+  _openImage() {
+    imagePopupUrl.src = this._link;
+    imagePopupName.textContent = this._name;
+    openPopup(imagePopup);
   }
 };
