@@ -1,4 +1,9 @@
-import { openPopup, imagePopup, imagePopupUrl, imagePopupName } from "./index.js";
+import {
+  openPopup,
+  imagePopup,
+  imagePopupUrl,
+  imagePopupName,
+} from "./index.js";
 
 export default class Card {
   constructor(data, selector) {
@@ -9,18 +14,17 @@ export default class Card {
 
   _getTemplate() {
     const cardElement = document
-    .querySelector(this._elementSelector)
-    .content
-    .querySelector('.element')
-    .cloneNode(true);
+      .querySelector(this._elementSelector)
+      .content.querySelector(".element")
+      .cloneNode(true);
 
-    return(cardElement);
+    return cardElement;
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__name').textContent = this._name;
+    this._element.querySelector(".element__image").src = this._link;
+    this._element.querySelector(".element__name").textContent = this._name;
 
     this._setEventListeners();
 
@@ -28,23 +32,25 @@ export default class Card {
   }
 
   _toggleLikeState() {
-    this._likeElement.classList.toggle('element__like_active');
+    this._likeElement.classList.toggle("element__like_active");
   }
 
   _setEventListeners() {
     // лайк
-    this._likeElement = this._element.querySelector('.element__like');
-    this._likeElement.addEventListener('click', () => {
+    this._likeElement = this._element.querySelector(".element__like");
+    this._likeElement.addEventListener("click", () => {
       this._toggleLikeState();
     });
     // удаление карточки
-    this._deletionElement = this._element.querySelector('.element__trash');
-    this._deletionElement.addEventListener('click', () => {
+    this._deletionElement = this._element.querySelector(".element__trash");
+    this._deletionElement.addEventListener("click", () => {
       this._deleteElement();
     });
     // открытие полной версии картинки
-    this._increaseImageButton = this._element.querySelector('.element__fullscreen');
-    this._increaseImageButton.addEventListener('click', () => {
+    this._increaseImageButton = this._element.querySelector(
+      ".element__fullscreen"
+    );
+    this._increaseImageButton.addEventListener("click", () => {
       this._openImage();
     });
   }
@@ -58,4 +64,4 @@ export default class Card {
     imagePopupName.textContent = this._name;
     openPopup(imagePopup);
   }
-};
+}

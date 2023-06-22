@@ -73,11 +73,6 @@ editingProfileForm.addEventListener("submit", (event) => {
 
 //////////////////// КАРТОЧКИ
 
-// Добавление новых
-const additionCardPopup = document.querySelector("#addCardPopup");
-const additionCardForm = document.querySelector("#addCardForm");
-const additionCardButton = document.querySelector("#addCardFormButton");
-
 // Массив объектов с наполнением начальных карточек
 const cards = [
   {
@@ -106,12 +101,40 @@ const cards = [
   },
 ];
 
-/////////////////////////////
+const elements = document.querySelector('.elements');
+const renderCard = (cardToRender) => {
+  const card = new Card(cardToRender, '#elementTemplate');
+  const cardElement = card.generateCard();
+  elements.prepend(cardElement);
+};
 
 import Card from "./Card.js";
 
 cards.forEach( item => {
-  const card = new Card(item, '#elementTemplate');
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').append(cardElement);
+  renderCard(item);
+});
+
+// Добавление новых карточек
+const additionCardPopup = document.querySelector("#addCardPopup");
+const additionCardForm = document.querySelector("#addCardForm");
+const additionCardButton = document.querySelector("#addCardFormButton");
+const formCardName = document.querySelector("#formCardName");
+const formCardUrl = document.querySelector("#formCardUrl");
+
+additionCardButton.addEventListener("click", () => {
+  openPopup(additionCardPopup);
+  // resetInputs(additionCardPopup);
+});
+
+additionCardForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const newCard = {
+    link: formCardUrl.value,
+    name: formCardName.value,
+  };
+
+  renderCard(newCard);
+
+  closePopup(addCardPopup);
+  additionCardForm.reset();
 });

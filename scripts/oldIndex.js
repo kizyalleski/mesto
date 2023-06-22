@@ -145,21 +145,21 @@ const resetInputs = (popup) => {
   hideErrors(getInputsAndErrors(popup), configuration);
 };
 
-additionCardButton.addEventListener("click", () => {
-  openPopup(additionCardPopup);
-  resetInputs(additionCardPopup);
-});
+// additionCardButton.addEventListener("click", () => {
+//   openPopup(additionCardPopup);
+//   resetInputs(additionCardPopup);
+// });
 
-const formCardName = document.querySelector("#formCardName");
-const formCardUrl = document.querySelector("#formCardUrl");
+// const formCardName = document.querySelector("#formCardName");
+// const formCardUrl = document.querySelector("#formCardUrl");
 
-additionCardForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const newCard = {
-    name: formCardName.value,
-    link: formCardUrl.value,
-  };
-  renderCard(newCard);
-  closePopup(addCardPopup);
-  additionCardForm.reset();
-});
+// additionCardForm.addEventListener("submit", (event) => {
+//   event.preventDefault();
+//   const newCard = {
+//     name: formCardName.value,
+//     link: formCardUrl.value,
+//   };
+//   renderCard(newCard);
+//   closePopup(addCardPopup);
+//   additionCardForm.reset();
+// });
