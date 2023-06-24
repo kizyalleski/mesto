@@ -6,13 +6,13 @@ export const imagePopupUrl = imagePopup.querySelector(".popup__image");
 export const imagePopupName = imagePopup.querySelector(".popup__caption");
 
 // функция открытия попапа
-export const openPopup = popup => {
+export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
-  document.addEventListener('keydown', closePopupEsc);
+  document.addEventListener("keydown", closePopupEsc);
 };
 
 // функция закрытия попапа
-const closePopup = popup => {
+const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEsc);
 };
@@ -26,17 +26,16 @@ const closePopupEsc = (e) => {
 };
 
 // закрытие попапа при клике на керстик или оверлей
-popupList.forEach( popup => {
-  popup.addEventListener('mousedown', e => {
-    if (e.target.classList.contains('popup_opened')) {
+popupList.forEach((popup) => {
+  popup.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("popup_opened")) {
       closePopup(popup);
     }
-    if (e.target.classList.contains('popup__close-button')) {
+    if (e.target.classList.contains("popup__close-button")) {
       closePopup(popup);
     }
   });
 });
-
 
 //////////////////// ПРОФИЛЬ
 
@@ -59,7 +58,8 @@ function setUserInfoFormFields(form, name, occupation) {
 editingProfileButton.addEventListener("click", () => {
   setUserInfoFormFields(userInfoForm, profileUserName, profileUserOccupation);
   openPopup(editingProfilePopup);
-  // hideErrors(getInputsAndErrors(editingProfilePopup), configuration);
+  FormValidator.disBtn(editingProfilePopup);
+  FormValidator.resetErrorsStyle(editingProfilePopup);
 });
 
 // нажатие кнопки сохранить
@@ -69,7 +69,6 @@ editingProfileForm.addEventListener("submit", (event) => {
   profileUserOccupation.textContent = formUserOccupation.value;
   closePopup(editingProfilePopup);
 });
-
 
 //////////////////// КАРТОЧКИ
 
@@ -101,16 +100,16 @@ const cards = [
   },
 ];
 
-const elements = document.querySelector('.elements');
+const elements = document.querySelector(".elements");
 const renderCard = (cardToRender) => {
-  const card = new Card(cardToRender, '#elementTemplate');
+  const card = new Card(cardToRender, "#elementTemplate");
   const cardElement = card.generateCard();
   elements.prepend(cardElement);
 };
 
 import Card from "./Card.js";
 
-cards.forEach( item => {
+cards.forEach((item) => {
   renderCard(item);
 });
 
@@ -123,7 +122,9 @@ const formCardUrl = document.querySelector("#formCardUrl");
 
 additionCardButton.addEventListener("click", () => {
   openPopup(additionCardPopup);
-  // resetInputs(additionCardPopup);
+  FormValidator.disBtn(additionCardPopup);
+  FormValidator.resetErrorsStyle(additionCardPopup);
+  FormValidator.resetInputs(additionCardPopup);
 });
 
 additionCardForm.addEventListener("submit", (event) => {
@@ -139,7 +140,6 @@ additionCardForm.addEventListener("submit", (event) => {
   additionCardForm.reset();
 });
 
-
 //////////////////// ВАЛИДАЦИЯ
 const configuration = {
   editingProfileFormId: "editingProfileForm",
@@ -152,7 +152,7 @@ const configuration = {
 import FormValidator from "./FormValidator.js";
 
 const formList = document.querySelectorAll(".form");
-formList.forEach( item => {
+formList.forEach((item) => {
   const form = new FormValidator(configuration, item);
   form.enableValidation();
 });

@@ -62,6 +62,29 @@ export default class FormValidator {
     }
   }
 
+  static disBtn(popup) {
+    const button = popup.querySelector('.form__submit');
+    button.classList.add('form__submit_disabled');
+    button.disabled = true;
+  }
+
+  static resetErrorsStyle(popup) {
+    const errorList = popup.querySelectorAll('.form__error');
+    errorList.forEach( error => {
+      error.textContent = '';
+    });
+
+    const inputList = popup.querySelectorAll('.form__input');
+    inputList.forEach( input => {
+      input.classList.remove('form__input_invalid');
+    });
+  }
+
+  static resetInputs(popup) {
+    const form = popup.querySelector('.form');
+    form.reset();
+  }
+
   enableValidation() {
     this._setIventListeners();
   }
