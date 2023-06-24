@@ -138,3 +138,21 @@ additionCardForm.addEventListener("submit", (event) => {
   closePopup(addCardPopup);
   additionCardForm.reset();
 });
+
+
+//////////////////// ВАЛИДАЦИЯ
+const configuration = {
+  editingProfileFormId: "editingProfileForm",
+  inputSelector: ".form__input",
+  invalidInputClass: "form__input_invalid",
+  submitButtonSelector: ".form__submit",
+  inactiveButtonClass: "form__submit_disabled",
+};
+
+import FormValidator from "./FormValidator.js";
+
+const formList = document.querySelectorAll(".form");
+formList.forEach( item => {
+  const form = new FormValidator(configuration, item);
+  form.enableValidation();
+});
