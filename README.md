@@ -4,11 +4,11 @@
 **Технологии**
 
 * HTM
-* CSS
+* Vanilla CSS
 * FLEXBOX, GRID
 * Адаптивная верстка, отзывчивая верстка
 * БЭМ (Nested)
-* JavaScript
+* Vanilla JavaScript (Modules, Classes)
 
 **Функциональность**
 
@@ -16,12 +16,12 @@
 * Добавление картинок в избранные
 * Добавление и удаление карточек
 * Открытие полной версии изображения
-* Валидация полей ввода
+* Валидация форм
 
 **Макет в Figma**
 
 * [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
-**Ссылка на GitHub Pages**
+**Проект на GitHub Pages**
 
 * [Ссылка на проект](https://kizyalleski.github.io/mesto/)

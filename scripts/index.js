@@ -37,6 +37,7 @@ popupList.forEach((popup) => {
   });
 });
 
+
 //////////////////// ПРОФИЛЬ
 
 const editingProfilePopup = document.querySelector("#editProfilePopup");

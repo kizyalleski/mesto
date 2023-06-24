@@ -23,8 +23,11 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".element__image").src = this._link;
-    this._element.querySelector(".element__name").textContent = this._name;
+    this._elementImage = this._element.querySelector(".element__image");
+    this._elementName = this._element.querySelector(".element__name");
+    this._elementImage.src = this._link;
+    this._elementName = this._name;
+    this._elementImage.alt = this._name;
 
     this._setEventListeners();
 
