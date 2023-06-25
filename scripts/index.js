@@ -2,7 +2,7 @@
 
 const popupList = document.querySelectorAll(".popup");
 export const imagePopup = document.querySelector("#imagePopup");
-export const imagePopupUrl = imagePopup.querySelector(".popup__image");
+export const imagePopupImage = imagePopup.querySelector(".popup__image");
 export const imagePopupName = imagePopup.querySelector(".popup__caption");
 
 // функция открытия попапа

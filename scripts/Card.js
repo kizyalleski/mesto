@@ -1,7 +1,7 @@
 import {
   openPopup,
   imagePopup,
-  imagePopupUrl,
+  imagePopupImage,
   imagePopupName,
 } from "./index.js";
 
@@ -25,8 +25,8 @@ export default class Card {
     this._element = this._getTemplate();
     this._elementImage = this._element.querySelector(".element__image");
     this._elementName = this._element.querySelector(".element__name");
+    this._elementName.textContent = this._name;
     this._elementImage.src = this._link;
-    this._elementName = this._name;
     this._elementImage.alt = this._name;
 
     this._setEventListeners();
@@ -63,8 +63,10 @@ export default class Card {
   }
 
   _openImage() {
-    imagePopupUrl.src = this._link;
+    imagePopupImage.src = this._link;
+    imagePopupImage.alt = this._name;
     imagePopupName.textContent = this._name;
+
     openPopup(imagePopup);
   }
 }
