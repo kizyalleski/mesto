@@ -37,6 +37,27 @@ popupList.forEach((popup) => {
   });
 });
 
+//////////////////// ФУНКЦИИ ОФИСТКИ ИНАКТОВ И УДАЕНИЯ ОШИБОК
+const disBtn = (popup, config) => {
+  const button = popup.querySelector(config.submitButtonSelector);
+    button.classList.add(config.inactiveButtonClass);
+    button.disabled = true;
+};
+const resetErrorsStyle = (popup, config) => {
+  const errorList = popup.querySelectorAll(config.inputErrorSelector);
+    errorList.forEach((error) => {
+      error.textContent = "";
+    });
+
+    const inputList = popup.querySelectorAll(config.inputSelector);
+    inputList.forEach((input) => {
+      input.classList.remove(config.invalidInputClass);
+    });
+};
+const resetInputs = (popup, config) => {
+  const form = popup.querySelector(config.formSelector);
+  form.reset();
+};
 
 //////////////////// ПРОФИЛЬ
 
@@ -59,8 +80,8 @@ function setUserInfoFormFields(form, name, occupation) {
 editingProfileButton.addEventListener("click", () => {
   setUserInfoFormFields(userInfoForm, profileUserName, profileUserOccupation);
   openPopup(editingProfilePopup);
-  FormValidator.disBtn(editingProfilePopup);
-  FormValidator.resetErrorsStyle(editingProfilePopup);
+  disBtn(editingProfilePopup, configuration);
+  resetErrorsStyle(editingProfilePopup, configuration);
 });
 
 // нажатие кнопки сохранить
@@ -102,10 +123,14 @@ const cards = [
 ];
 
 const elements = document.querySelector(".elements");
-const renderCard = (cardToRender) => {
-  const card = new Card(cardToRender, "#elementTemplate");
+const createCard = cardItem => {
+  const card = new Card(cardItem, "#elementTemplate");
   const cardElement = card.generateCard();
-  elements.prepend(cardElement);
+  return cardElement;
+};
+
+const renderCard = card => {
+  elements.prepend( createCard(card) );
 };
 
 import Card from "./Card.js";
@@ -123,9 +148,9 @@ const formCardUrl = document.querySelector("#formCardUrl");
 
 additionCardButton.addEventListener("click", () => {
   openPopup(additionCardPopup);
-  FormValidator.disBtn(additionCardPopup);
-  FormValidator.resetErrorsStyle(additionCardPopup);
-  FormValidator.resetInputs(additionCardPopup);
+  disBtn(additionCardPopup, configuration);
+  resetErrorsStyle(additionCardPopup, configuration);
+  resetInputs(additionCardPopup, configuration);
 });
 
 additionCardForm.addEventListener("submit", (event) => {
@@ -143,17 +168,19 @@ additionCardForm.addEventListener("submit", (event) => {
 
 //////////////////// ВАЛИДАЦИЯ
 const configuration = {
+  formSelector: '.form',
   editingProfileFormId: "editingProfileForm",
   inputSelector: ".form__input",
   invalidInputClass: "form__input_invalid",
   submitButtonSelector: ".form__submit",
   inactiveButtonClass: "form__submit_disabled",
+  inputErrorSelector: ".form__error"
 };
 
 import FormValidator from "./FormValidator.js";
 
-const formList = document.querySelectorAll(".form");
-formList.forEach((item) => {
-  const form = new FormValidator(configuration, item);
-  form.enableValidation();
-});
+const profileFormValidator = new FormValidator(configuration, editingProfileForm);
+profileFormValidator.enableValidation();
+
+const cardAdditionFormValidator = new FormValidator(configuration, additionCardForm);
+cardAdditionFormValidator.enableValidation();
