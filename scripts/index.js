@@ -37,27 +37,7 @@ popupList.forEach((popup) => {
   });
 });
 
-//////////////////// ФУНКЦИИ ОФИСТКИ ИНАКТОВ И УДАЕНИЯ ОШИБОК
-const disBtn = (popup, config) => {
-  const button = popup.querySelector(config.submitButtonSelector);
-    button.classList.add(config.inactiveButtonClass);
-    button.disabled = true;
-};
-const resetErrorsStyle = (popup, config) => {
-  const errorList = popup.querySelectorAll(config.inputErrorSelector);
-    errorList.forEach((error) => {
-      error.textContent = "";
-    });
 
-    const inputList = popup.querySelectorAll(config.inputSelector);
-    inputList.forEach((input) => {
-      input.classList.remove(config.invalidInputClass);
-    });
-};
-const resetInputs = (popup, config) => {
-  const form = popup.querySelector(config.formSelector);
-  form.reset();
-};
 
 //////////////////// ПРОФИЛЬ
 
@@ -80,8 +60,7 @@ function setUserInfoFormFields(form, name, occupation) {
 editingProfileButton.addEventListener("click", () => {
   setUserInfoFormFields(userInfoForm, profileUserName, profileUserOccupation);
   openPopup(editingProfilePopup);
-  disBtn(editingProfilePopup, configuration);
-  resetErrorsStyle(editingProfilePopup, configuration);
+  profileFormValidator.resetValidation();
 });
 
 // нажатие кнопки сохранить
@@ -93,6 +72,10 @@ editingProfileForm.addEventListener("submit", (event) => {
 });
 
 //////////////////// КАРТОЧКИ
+
+const resetInputs = (form) => {
+  form.reset();
+};
 
 // Массив объектов с наполнением начальных карточек
 const cards = [
@@ -148,9 +131,8 @@ const formCardUrl = document.querySelector("#formCardUrl");
 
 additionCardButton.addEventListener("click", () => {
   openPopup(additionCardPopup);
-  disBtn(additionCardPopup, configuration);
-  resetErrorsStyle(additionCardPopup, configuration);
-  resetInputs(additionCardPopup, configuration);
+  cardAdditionFormValidator.resetValidation();
+  resetInputs(additionCardForm);
 });
 
 additionCardForm.addEventListener("submit", (event) => {
