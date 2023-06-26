@@ -38,7 +38,6 @@ popupList.forEach((popup) => {
 });
 
 
-
 //////////////////// ПРОФИЛЬ
 
 const editingProfilePopup = document.querySelector("#editProfilePopup");
@@ -73,6 +72,7 @@ editingProfileForm.addEventListener("submit", (event) => {
 
 //////////////////// КАРТОЧКИ
 
+// функция сброса полей ввода
 const resetInputs = (form) => {
   form.reset();
 };
