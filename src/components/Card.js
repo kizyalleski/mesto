@@ -3,7 +3,7 @@ import {
   imagePopup,
   imagePopupImage,
   imagePopupName,
-} from "./index.js";
+} from "../pages/index.js";
 
 export default class Card {
   constructor(data, selector) {

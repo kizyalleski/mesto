@@ -116,7 +116,7 @@ const renderCard = card => {
   elements.prepend( createCard(card) );
 };
 
-import Card from "./Card.js";
+import Card from "../components/Card.js";
 
 cards.forEach((item) => {
   renderCard(item);
@@ -159,7 +159,7 @@ const configuration = {
   inputErrorSelector: ".form__error"
 };
 
-import FormValidator from "./FormValidator.js";
+import FormValidator from "../components/FormValidator.js";
 
 const profileFormValidator = new FormValidator(configuration, editingProfileForm);
 profileFormValidator.enableValidation();
