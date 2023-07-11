@@ -1,9 +1,9 @@
-import {
-  openPopup,
-  imagePopup,
-  imagePopupImage,
-  imagePopupName,
-} from "../pages/index.js";
+// import {
+//   openPopup,
+//   imagePopup,
+//   imagePopupImage,
+//   imagePopupName,
+// } from "../pages/index.js";
 
 export default class Card {
   constructor(data, selector) {

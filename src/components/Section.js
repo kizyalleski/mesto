@@ -1,5 +1,5 @@
 export default class Section {
-  constructor({ items, renderer }, selector) {
+  constructor({ items, renderer }, selector ) {
     this._initialArray = items;
     this._renderer = renderer;
     this._container = document.querySelector(selector);
@@ -8,12 +8,13 @@ export default class Section {
   renderItems() {
     // перебирает массив _initialArray и вызывает для каждого элемента метод addItem()
     this._initialArray.forEach( item => {
-      this.addItem(item);
+      const cardElement = this._renderer(item);
+      this.addItem(cardElement);
     });
   }
 
   addItem(element) {
     // принимает элемент и вставляет его в документ методом append
-    this._container.append(element);
+    this._container.prepend(element);
   }
 }
