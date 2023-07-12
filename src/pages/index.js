@@ -12,13 +12,21 @@ const userData = new UserInfo({
   occupation: '#profileUserOccupation'
 });
 
+// создание объекта попапа информации о пользователе.
+// принимает селектор попапа и функцию коллбек сабмита формы,
+// подставляющую значения формы на страницу
 const profilePopup = new PopupWithForm('#editProfilePopup', (data) => {
   userData.setUserInfo(data);
 });
 
-profilePopup.setEventListeners();
+profilePopup.setEventListeners(); // установка всех слушателей
+// открытие попама и подстановка значений по умолчанию в форму
 editingProfileButton.addEventListener("click", () => {
   profilePopup.open();
+  const userInfo = userData.getUserInfo();
+  profilePopup._inputs.forEach( input => {
+    input.value = userInfo[input.id];
+  });
 });
 
 
