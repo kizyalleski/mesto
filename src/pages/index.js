@@ -5,6 +5,7 @@ import Card from "../components/Card.js";
 import { editingProfileButton } from '../utils/constants.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 // ПРОФИЛЬ
 const userData = new UserInfo({
@@ -29,7 +30,6 @@ editingProfileButton.addEventListener("click", () => {
   });
 });
 
-
 // Добавление начальных карточек
 const cardsSetion = new Section(
   {
@@ -44,8 +44,9 @@ const cardsSetion = new Section(
 );
 cardsSetion.renderItems();
 
-
-
+// инициализациия попапа и картинки и добавление функцианала
+export const imagePopup = new PopupWithImage('#imagePopup');
+imagePopup.setEventListeners();
 
 
 

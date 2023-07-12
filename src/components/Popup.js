@@ -1,3 +1,4 @@
+// принимает на вход селектор попапа
 export default class Popup {
   constructor(selector) {
     this._selector = selector;

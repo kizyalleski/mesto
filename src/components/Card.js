@@ -1,12 +1,7 @@
-// import {
-//   openPopup,
-//   imagePopup,
-//   imagePopupImage,
-//   imagePopupName,
-// } from "../pages/index.js";
+import { imagePopup } from '../pages/index.js';
 
 export default class Card {
-  constructor(data, selector) {
+  constructor(data, selector, handleCardClick) {
     this._link = data.link;
     this._name = data.name;
     this._elementSelector = selector;
@@ -63,10 +58,6 @@ export default class Card {
   }
 
   _openImage() {
-    imagePopupImage.src = this._link;
-    imagePopupImage.alt = this._name;
-    imagePopupName.textContent = this._name;
-
-    openPopup(imagePopup);
+    imagePopup.open(this._link, this._name);
   }
 }
