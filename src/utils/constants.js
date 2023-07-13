@@ -1,5 +1,5 @@
 // Массив с наполнением начальных карточек
-export const cards = [
+const cards = [
   {
     name: "Тбилиси",
     link: "./images/tbilisi.jpg",
@@ -27,5 +27,28 @@ export const cards = [
 ];
 
 // Кнопка открытия попапа редактирования профиля
-export const editingProfileButton = document.querySelector("#editProfileButton");
-export const addCardButton = document.querySelector('#addCardFormButton');
+const editingProfileButton = document.querySelector("#editProfileButton");
+const addCardButton = document.querySelector('#addCardFormButton');
+
+// Константы для валижациии
+const additionCardForm = document.querySelector("#addCardForm");
+const editingProfileForm = document.querySelector("#editingProfileForm");
+
+const configuration = {
+  formSelector: ".form",
+  editingProfileFormId: "editingProfileForm",
+  inputSelector: ".form__input",
+  invalidInputClass: "form__input_invalid",
+  submitButtonSelector: ".form__submit",
+  inactiveButtonClass: "form__submit_disabled",
+  inputErrorSelector: ".form__error",
+};
+
+export {
+  cards,
+  editingProfileButton,
+  addCardButton,
+  additionCardForm,
+  editingProfileForm,
+  configuration
+};
