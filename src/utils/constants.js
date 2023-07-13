@@ -28,3 +28,4 @@ export const cards = [
 
 // Кнопка открытия попапа редактирования профиля
 export const editingProfileButton = document.querySelector("#editProfileButton");
+export const addCardButton = document.querySelector('#addCardFormButton');

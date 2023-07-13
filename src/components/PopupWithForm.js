@@ -18,8 +18,7 @@ export default class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
-    // перезаписывает родительский,
-    // добавляя обработчик сабмита
+    // перезаписывает родительский, добавляя обработчик сабмита
     super.setEventListeners();
     this._form.addEventListener('submit', e => {
       e.preventDefault();
@@ -29,8 +28,7 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    // перезаписывает родительский метод,
-    // добавляя ресет полей формы
+    // перезаписывает родительский метод, добавляя ресет полей формы
     super.close();
     this._form.reset();
   }

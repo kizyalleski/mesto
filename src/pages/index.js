@@ -1,22 +1,22 @@
-import { cards } from '../utils/constants.js';
+import { cards } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
-// import Popup from "../components/Popup.js";
-import { editingProfileButton } from '../utils/constants.js';
-import UserInfo from '../components/UserInfo.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithImage from '../components/PopupWithImage.js';
+import { editingProfileButton } from "../utils/constants.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import { addCardButton } from "../utils/constants.js";
 
 // ПРОФИЛЬ
 const userData = new UserInfo({
-  name: '#profileUserName',
-  occupation: '#profileUserOccupation'
+  name: "#profileUserName",
+  occupation: "#profileUserOccupation",
 });
 
 // создание объекта попапа информации о пользователе.
 // принимает селектор попапа и функцию коллбек сабмита формы,
 // подставляющую значения формы на страницу
-const profilePopup = new PopupWithForm('#editProfilePopup', (data) => {
+const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
   userData.setUserInfo(data);
 });
 
@@ -25,30 +25,48 @@ profilePopup.setEventListeners(); // установка всех слушате�
 editingProfileButton.addEventListener("click", () => {
   profilePopup.open();
   const userInfo = userData.getUserInfo();
-  profilePopup._inputs.forEach( input => {
+  profilePopup._inputs.forEach((input) => {
     input.value = userInfo[input.id];
   });
 });
 
+// функция создания попапа изображения
+const createImagePopup = (link, name) => {
+  const imagePopup = new PopupWithImage("#imagePopup");
+  imagePopup.setEventListeners();
+  imagePopup.open(link, name);
+};
+
 // Добавление начальных карточек
-const cardsSetion = new Section(
+const cardsSection = new Section(
   {
     items: cards,
     renderer: (item) => {
-      const card = new Card(item, "#elementTemplate");
+      const card = new Card(item, "#elementTemplate", createImagePopup);
       const cardElement = card.generateCard();
       return cardElement;
     },
   },
   ".elements"
 );
-cardsSetion.renderItems();
+cardsSection.renderItems();
 
-// инициализациия попапа и картинки и добавление функцианала
-export const imagePopup = new PopupWithImage('#imagePopup');
-imagePopup.setEventListeners();
+// добавление новых карточек
+const additionCardPopup = new PopupWithForm("#addCardPopup", () => {
+  // функция сабмита формы добавления новой карточки
+  const newCardData = {
+    name: formCardName.value,
+    link: formCardUrl.value,
+  };
+  const newCard = new Card(newCardData, "#elementTemplate", createImagePopup);
+  const newCardElement = newCard.generateCard();
+  cardsSection.addItem(newCardElement);
+});
+additionCardPopup.setEventListeners();
 
-
+addCardButton.addEventListener("click", () => {
+  additionCardPopup.open();
+});
 
 //////////////////// РАБОТА С ПОПАПАМИ
 
@@ -89,10 +107,6 @@ imagePopup.setEventListeners();
 //   });
 // });
 
-
-
-
-
 //////////////////// ПРОФИЛЬ
 
 // const editingProfileForm = document.querySelector("#editingProfileForm");
@@ -129,9 +143,6 @@ imagePopup.setEventListeners();
 // const resetInputs = (form) => {
 //   form.reset();
 // };
-
-
-
 
 // Добавление новых карточек
 // const additionCardPopup = document.querySelector("#addCardPopup");

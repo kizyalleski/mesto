@@ -1,10 +1,9 @@
-import { imagePopup } from '../pages/index.js';
-
 export default class Card {
   constructor(data, selector, handleCardClick) {
     this._link = data.link;
     this._name = data.name;
     this._elementSelector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -58,6 +57,6 @@ export default class Card {
   }
 
   _openImage() {
-    imagePopup.open(this._link, this._name);
+    this._handleCardClick(this._link, this._name);
   }
 }
