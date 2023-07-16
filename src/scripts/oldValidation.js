@@ -54,7 +54,7 @@ const setEventListeners = (form, inputList, button, config) => {
     isInputValid(input, inputError, config);
     toggleButtonState(inputList, button, config);
   });
-  form.addEventListener('submit', e => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     toggleButtonState(inputList, button, config);
   });

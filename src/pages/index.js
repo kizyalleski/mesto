@@ -1,10 +1,16 @@
+// импорт стилей
+import './index.css';
+// импорт статичных картинок
+import logo from '../images/logo.svg';
+import avatar from '../images/kusto.jpg';
+// импорт констант и модулей
 import {
   cards,
   editingProfileButton,
   addCardButton,
   configuration,
   editingProfileForm,
-  additionCardForm
+  additionCardForm,
 } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
@@ -12,6 +18,12 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
+
+// подстановка статичных картинок
+const logoElement = document.querySelector('.header__logo');
+logoElement.src = logo;
+const avatarElement = document.querySelector('.profile__avatar');
+avatarElement.src = avatar;
 
 // ОСНОВНОЙ ФУНКЦИОНАЛ
 const userData = new UserInfo({

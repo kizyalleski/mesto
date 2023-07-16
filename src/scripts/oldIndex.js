@@ -28,7 +28,7 @@ const closePopupEsc = (e) => {
 // функция открытия попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener('keydown', closePopupEsc);
+  document.addEventListener("keydown", closePopupEsc);
 }
 
 // функция подстановки значений в форму
@@ -43,22 +43,22 @@ function setUserInfoFormFields(form, name, occupation) {
 const hideErrors = (inputsAndErrors, config) => {
   const inputs = inputsAndErrors.inputs;
   const errors = inputsAndErrors.errors;
-  inputs.forEach( input => {
+  inputs.forEach((input) => {
     input.classList.remove(config.invalidInputClass);
   });
-  errors.forEach( error => {
-    error.textContent = '';
+  errors.forEach((error) => {
+    error.textContent = "";
   });
 };
 
 // функция получения инпутов и их ошибок
-const getInputsAndErrors = popup => {
+const getInputsAndErrors = (popup) => {
   const inputsAndErrors = {
-    inputs: popup.querySelectorAll('.form__input'),
-    errors: popup.querySelectorAll('.form__error')
+    inputs: popup.querySelectorAll(".form__input"),
+    errors: popup.querySelectorAll(".form__error"),
   };
   return inputsAndErrors;
-}
+};
 
 // нажатие кнопки редактировать профиль
 editingProfileButton.addEventListener("click", () => {
@@ -68,12 +68,12 @@ editingProfileButton.addEventListener("click", () => {
 });
 
 // закрытие попапа при клике на керстик или оверлей
-popupList.forEach( popup => {
-  popup.addEventListener('mousedown', e => {
-    if (e.target.classList.contains('popup_opened')) {
+popupList.forEach((popup) => {
+  popup.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("popup_opened")) {
       closePopup(popup);
     }
-    if (e.target.classList.contains('popup__close-button')) {
+    if (e.target.classList.contains("popup__close-button")) {
       closePopup(popup);
     }
   });
@@ -90,7 +90,7 @@ editingProfileForm.addEventListener("submit", (event) => {
 ////////////////////////////////
 
 // функуия открытия полной версии изображения
-const openImage = e => {
+const openImage = (e) => {
   const imageData = {
     url: e.target.getAttribute("src"),
     caption: e.target.getAttribute("alt"),
@@ -99,7 +99,7 @@ const openImage = e => {
   image.setAttribute("alt", "Полная версия изображения " + imageData.caption);
   imageName.textContent = imageData.caption;
   openPopup(imagePopup);
-}
+};
 
 // функция создания карточки
 function createNewCard(card) {
@@ -140,7 +140,7 @@ const additionCardButton = document.querySelector("#addCardFormButton");
 
 // функция очистки полей ввода и текста ошибок валидации
 const resetInputs = (popup) => {
-  const form = popup.querySelector('.form');
+  const form = popup.querySelector(".form");
   form.reset();
   hideErrors(getInputsAndErrors(popup), configuration);
 };
