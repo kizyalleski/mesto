@@ -24,7 +24,7 @@ module.exports = {
       // rules — это массив правил. добавим в него объект правил для бабеля
       {
         // регулярное выражение, которое ищет все js файлы
-        test: /\.js$/,
+        test: /\.js$/i,
         // при обработке этих файлов нужно использовать babel-loader
         use: "babel-loader",
         // исключает папку node_modules, файлы в ней обрабатывать не нужно
@@ -32,15 +32,21 @@ module.exports = {
       },
       {
         // регулярное выражение, которое ищет все файлы с такими расширениями
-        test: /\.(woff(2)?|eot|ttf|otf)$/,
+        test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource",
+        generator: {
+          filename: "fonts/[name].[hash][ext]"
+        }
       },
       {
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|gif)$/i,
         type: "asset/resource",
+        generator: {
+          filename: "images/[name].[hash][ext]"
+        }
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         // при обработке css нужно использовать MiniCssExtractPlugin.loader и css-loader
         use: [
           MiniCssExtractPlugin.loader,

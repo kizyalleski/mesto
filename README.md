@@ -3,12 +3,13 @@
 
 **Технологии**
 
-* HTM
+* HTML
 * Vanilla CSS
 * FLEXBOX, GRID
 * Адаптивная верстка, отзывчивая верстка
 * БЭМ (Nested)
 * Vanilla JavaScript (Modules, Classes)
+* Webpack
 
 **Функциональность**
 

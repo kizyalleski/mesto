@@ -18,7 +18,7 @@ export default class Popup {
   }
 
   _handleEscClose(e) {
-    if (e.key === "Escape" || e.keyCode === 27) {
+    if (e.key === "Escape" || e.code === "Escape") {
       this.close();
     }
   }
@@ -28,10 +28,8 @@ export default class Popup {
       this.close();
     });
     this._popup.addEventListener("mousedown", (e) => {
-      if (e.target.classList.contains("popup_opened")) {
-        this.close();
-      }
-      if (e.target.classList.contains("popup__close-button")) {
+      if (e.target.classList.contains("popup_opened") ||
+      e.target.classList.contains("popup__close-button")) {
         this.close();
       }
     });

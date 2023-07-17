@@ -13,19 +13,20 @@
 <body class="page">
   <div class="content">
     <header class="header">
-      <img alt="Логотип Место" class="header__logo">
+      <!-- динамическая подстановка ссылки на картинку через HtmlWebpackPlugin -->
+      <img src="<%=require("./images/logo.svg")%>" alt="Логотип Место" class="header__logo">
     </header>
     <main class="main">
       <section class="profile">
         <div class="profile__user-content">
-          <img alt="Аватар пользователя" class="profile__avatar">
+          <img src="<%=require("./images/kusto.jpg")%>" alt="Аватар пользователя" class="profile__avatar">
           <div class="profile__info">
             <h1 id="profileUserName" class="profile__user-name">Жак-Ив Кусто</h1>
             <p id="profileUserOccupation" class="profile__user-occupation">Исследователь океана</p>
-            <button id="editProfileButton" type="button" class="profile__edit-button"></button>
+            <button id="editProfileButton" type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
           </div>
         </div>
-        <button id="addCardFormButton" type="button" class="profile__add-button"></button>
+        <button id="addCardFormButton" type="button" class="profile__add-button" aria-label="Добавить изображение"></button>
       </section>
       <section id="elements" class="elements">
       </section>
@@ -38,11 +39,11 @@
   <!-- Шаблон карточки -->
   <template id="elementTemplate">
     <article class="element">
-      <button class="element__fullscreen"> <img class="element__image"></button>
-      <button type="button" class="element__trash"></button>
+      <button class="element__fullscreen"> <img class="element__image" aria-label="Открыть изображение"></button>
+      <button type="button" class="element__trash" aria-label="Удалить изображение"></button>
       <div class="element__description">
         <h2 class="element__name"></h2>
-        <button type="button" class="element__like"></button>
+        <button type="button" class="element__like" aria-label="Лайк"></button>
       </div>
     </article>
   </template>
@@ -50,7 +51,7 @@
   <!-- Модальные окна -->
   <div id="editProfilePopup" class="popup">
     <div class="popup__container popup__container_form">
-      <button id="closeEditProfilePopupButton" type="button" class="popup__close-button"></button>
+      <button id="closeEditProfilePopupButton" type="button" class="popup__close-button" aria-label="Закрыть"></button>
       <h3 class="popup__heading">Редактировать профиль</h3>
       <form name="userInfoForm" id="editingProfileForm" class="form">
         <input type="text" id="formUserName" name="userNameInput" class="form__input" placeholder="Имя" required
@@ -65,7 +66,7 @@
   </div>
   <div id="addCardPopup" class="popup">
     <div class="popup__container popup__container_form">
-      <button id="closeAddCardPopupButton" type="button" class="popup__close-button"></button>
+      <button id="closeAddCardPopupButton" type="button" class="popup__close-button" aria-label="Закрыть"></button>
       <h3 class="popup__heading">Новое место</h3>
       <form name="addCardForm" id="addCardForm" class="form">
         <input type="text" id="formCardName" name="card-name-input" class="form__input" placeholder="Название" required
@@ -80,7 +81,7 @@
   </div>
   <div id="imagePopup" class="popup popup_image">
     <div class="popup__container popup__container_image">
-      <button type="button" id="closeImagePopupButton" class="popup__close-button"></button>
+      <button type="button" id="closeImagePopupButton" class="popup__close-button" aria-label="Закрыть"></button>
       <img src="#" alt="" class="popup__image">
       <p class="popup__caption"></p>
     </div>

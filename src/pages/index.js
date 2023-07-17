@@ -1,8 +1,5 @@
 // импорт стилей
-import './index.css';
-// импорт статичных картинок
-import logo from '../images/logo.svg';
-import avatar from '../images/kusto.jpg';
+import "./index.css";
 // импорт констант и модулей
 import {
   cards,
@@ -18,12 +15,6 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
-
-// подстановка статичных картинок
-const logoElement = document.querySelector('.header__logo');
-logoElement.src = logo;
-const avatarElement = document.querySelector('.profile__avatar');
-avatarElement.src = avatar;
 
 // ОСНОВНОЙ ФУНКЦИОНАЛ
 const userData = new UserInfo({
@@ -41,29 +32,25 @@ const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
 profilePopup.setEventListeners(); // установка всех слушателей
 // открытие попама и подстановка значений по умолчанию в форму
 editingProfileButton.addEventListener("click", () => {
-  profileFormValidator.resetValidation();
+  profileFormValidator.resetValidation(); // сброс ошибок валидации
   profilePopup.open();
   const userInfo = userData.getUserInfo();
-  profilePopup._inputs.forEach((input) => {
-    input.value = userInfo[input.id];
-  });
+  profilePopup.setInputValues(userInfo); // подстановка значений по умолчанию
 });
 
-// функция создания попапа изображения
-const createImagePopup = (link, name) => {
-  const imagePopup = new PopupWithImage("#imagePopup");
-  imagePopup.setEventListeners();
-  imagePopup.open(link, name);
-};
+// создание попапа изображения и установка слушателей
+const imagePopup = new PopupWithImage("#imagePopup");
+imagePopup.setEventListeners();
 
 // Добавление начальных карточек
 const cardsSection = new Section(
   {
     items: cards,
     renderer: (item) => {
-      const card = new Card(item, "#elementTemplate", createImagePopup);
-      const cardElement = card.generateCard();
-      return cardElement;
+      const card = new Card(item, "#elementTemplate", () => {
+        imagePopup.open(card._link, card._name);
+      });
+      return card.generateCard();
     },
   },
   ".elements"
@@ -71,13 +58,12 @@ const cardsSection = new Section(
 cardsSection.renderItems();
 
 // добавление новых карточек
-const additionCardPopup = new PopupWithForm("#addCardPopup", () => {
-  // функция сабмита формы добавления новой карточки
-  const newCardData = {
-    name: formCardName.value,
-    link: formCardUrl.value,
-  };
-  const newCard = new Card(newCardData, "#elementTemplate", createImagePopup);
+const additionCardPopup = new PopupWithForm("#addCardPopup", data => {
+  data.link = data.formCardUrl;
+  data.name = data.formCardName;
+  const newCard = new Card(data, "#elementTemplate", () => {
+    imagePopup.open(newCard._link, newCard._name);
+  });
   const newCardElement = newCard.generateCard();
   cardsSection.addItem(newCardElement);
 });
