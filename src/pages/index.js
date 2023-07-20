@@ -42,15 +42,20 @@ editingProfileButton.addEventListener("click", () => {
 const imagePopup = new PopupWithImage("#imagePopup");
 imagePopup.setEventListeners();
 
+// Функция создания карточки
+const createCard = data => {
+  const card = new Card(data, "#elementTemplate", (link, name) => {
+    imagePopup.open(link, name);
+  });
+  return card.generateCard();
+};
+
 // Добавление начальных карточек
 const cardsSection = new Section(
   {
     items: cards,
     renderer: (item) => {
-      const card = new Card(item, "#elementTemplate", () => {
-        imagePopup.open(card._link, card._name);
-      });
-      return card.generateCard();
+      return createCard(item);
     },
   },
   ".elements"
@@ -61,10 +66,7 @@ cardsSection.renderItems();
 const additionCardPopup = new PopupWithForm("#addCardPopup", data => {
   data.link = data.formCardUrl;
   data.name = data.formCardName;
-  const newCard = new Card(data, "#elementTemplate", () => {
-    imagePopup.open(newCard._link, newCard._name);
-  });
-  const newCardElement = newCard.generateCard();
+  const newCardElement = createCard(data);
   cardsSection.addItem(newCardElement);
 });
 additionCardPopup.setEventListeners();
