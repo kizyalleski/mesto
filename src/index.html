@@ -19,7 +19,9 @@
     <main class="main">
       <section class="profile">
         <div class="profile__user-content">
-          <img src="<%=require("./images/kusto.jpg")%>" alt="Аватар пользователя" class="profile__avatar">
+          <button class="profile__avatar">
+            <img src="<%=require("./images/kusto.jpg")%>" alt="Аватар пользователя" class="profile__avatar-image">
+          </button>
           <div class="profile__info">
             <h1 id="profileUserName" class="profile__user-name">Жак-Ив Кусто</h1>
             <p id="profileUserOccupation" class="profile__user-occupation">Исследователь океана</p>
@@ -43,12 +45,16 @@
       <button type="button" class="element__trash" aria-label="Удалить изображение"></button>
       <div class="element__description">
         <h2 class="element__name"></h2>
-        <button type="button" class="element__like" aria-label="Лайк"></button>
+        <div class="element__like-container">
+          <button type="button" class="element__like" aria-label="Лайк"></button>
+          <p class="element__like-counter">1</p>
+        </div>
       </div>
     </article>
   </template>
 
   <!-- Модальные окна -->
+  <!-- форма данных пользователя -->
   <div id="editProfilePopup" class="popup">
     <div class="popup__container popup__container_form">
       <button id="closeEditProfilePopupButton" type="button" class="popup__close-button" aria-label="Закрыть"></button>
@@ -64,6 +70,7 @@
       </form>
     </div>
   </div>
+  <!-- форма создания карточки -->
   <div id="addCardPopup" class="popup">
     <div class="popup__container popup__container_form">
       <button id="closeAddCardPopupButton" type="button" class="popup__close-button" aria-label="Закрыть"></button>
@@ -79,11 +86,32 @@
       </form>
     </div>
   </div>
+  <!-- полная версия изображения -->
   <div id="imagePopup" class="popup popup_image">
     <div class="popup__container popup__container_image">
       <button type="button" id="closeImagePopupButton" class="popup__close-button" aria-label="Закрыть"></button>
       <img src="#" alt="" class="popup__image">
       <p class="popup__caption"></p>
+    </div>
+  </div>
+  <!-- подтверждение удаления -->
+  <div id="confirmPopup" class="popup">
+    <div class="popup__container popup__container_confirm">
+      <button id="closeConfirmPopupButton" type="button" class="popup__close-button" aria-label="Закрыть"></button>
+      <h3 class="popup__heading popup__heading_confirm">Вы уверены?</h3>
+      <button type="submit" class="form__submit">Да</button>
+    </div>
+  </div>
+  <!-- обновление аватара -->
+  <div id="undateAvatarPopup" class="popup">
+    <div class="popup__container popup__container_form">
+      <button id="closeUpdateAvatarPopupButton" type="button" class="popup__close-button" aria-label="Закрыть"></button>
+      <h3 class="popup__heading">Обновить аватар</h3>
+      <form name="updateAvatarForm" id="updateAvatarForm" class="form">
+        <input type="url" id="formAvatarLink" name="avatar-link-input" class="form__input" placeholder="Ссылка" required>
+        <span class="formAvatarLink-error form__error form__error_single"></span>
+        <button name="updateAvatarButton" type="submit" class="form__submit">Сохранить</button>
+      </form>
     </div>
   </div>
 </body>
