@@ -18,6 +18,9 @@ module.exports = {
     compress: true, // это ускорит загрузку в режиме разработки
     port: 8080, // порт для открытия сайта по адресу localhost:8080
     open: true, // сайт будет открываться сам при запуске npm run dev
+    watchFiles: ["src/*.html"],
+    hot: true,
+    liveReload: true
   },
   module: {
     rules: [

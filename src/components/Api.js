@@ -1,9 +1,27 @@
-url = "https://mesto.nomoreparties.co/v1/cohort-71";
-const token = 'adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f';
+// url = "https://mesto.nomoreparties.co/v1/cohort-71";
+// const token = 'adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f';
 
-export class Api {
+export default class Api {
   constructor(options) {
-    // тело конструктора
+    this._baseUrl = options.baseUrl;
+    this._token = options.token;
+  }
+
+  getUserData() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: {
+        authorization: this._token
+      },
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   getInitialCards() {
@@ -11,8 +29,7 @@ export class Api {
       headers: {
         authorization: token,
       },
-    })
-    .then((res) => {
+    }).then((res) => {
       if (res.ok) {
         return res.json();
       }
@@ -21,11 +38,3 @@ export class Api {
 
   // другие методы работы с API
 }
-
-const api = new Api({
-  baseUrl: url,
-  headers: {
-    authorization: token,
-    "Content-Type": "application/json",
-  },
-});

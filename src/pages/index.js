@@ -15,6 +15,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
+import Api from "../components/Api.js";
 
 // ОСНОВНОЙ ФУНКЦИОНАЛ
 const userData = new UserInfo({
@@ -88,3 +89,22 @@ const cardAdditionFormValidator = new FormValidator(
   additionCardForm
 );
 cardAdditionFormValidator.enableValidation();
+
+
+////////////// API
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-71',
+  token: "adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f"
+});
+
+// Начальная подстановка данных пользователя
+let userName = document.querySelector('.profile__user-name');
+let userOccupation = document.querySelector('.profile__user-occupation');
+let userAvatar = document.querySelector('.profile__avatar-image');
+let userId = '';
+api.getUserData().then(data => {
+  userName = data.name;
+  userOccupation = data.occupation;
+  userAvatar.src = data.avatar;
+  userId = data._id;
+});
