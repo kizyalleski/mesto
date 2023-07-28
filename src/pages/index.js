@@ -21,22 +21,7 @@ import Api from "../components/Api.js";
 const userData = new UserInfo({
   name: "#profileUserName",
   occupation: "#profileUserOccupation",
-});
-
-// создание объекта попапа информации о пользователе.
-// принимает селектор попапа и функцию коллбек сабмита формы,
-// подставляющую значения формы на страницу
-const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
-  userData.setUserInfo(data);
-});
-
-profilePopup.setEventListeners(); // установка всех слушателей
-// открытие попама и подстановка значений по умолчанию в форму
-editingProfileButton.addEventListener("click", () => {
-  profileFormValidator.resetValidation(); // сброс ошибок валидации
-  profilePopup.open();
-  const userInfo = userData.getUserInfo();
-  profilePopup.setInputValues(userInfo); // подстановка значений по умолчанию
+  avatar: ".profile__avatar-image"
 });
 
 // создание попапа изображения и установка слушателей
@@ -70,10 +55,6 @@ const cardAdditionFormValidator = new FormValidator(
 );
 cardAdditionFormValidator.enableValidation();
 
-
-
-
-
 ///////////////////////////////////////////////////
 ////////////// API
 const api = new Api({
@@ -82,15 +63,8 @@ const api = new Api({
 });
 
 // Начальная подстановка данных пользователя
-let userNameElement = document.querySelector(".profile__user-name");
-let userOccupationElement = document.querySelector(".profile__user-occupation");
-let userAvatarElement = document.querySelector(".profile__avatar-image");
-let userId = "";
-api.getUserData().then((data) => {
-  userNameElement = data.name;
-  userOccupationElement = data.occupation;
-  userAvatarElement.src = data.avatar;
-  userId = data._id;
+api.getUserData().then(data => {
+  userData.setUserInfo(data);
 });
 
 // Получение данных исходных карточек
@@ -116,3 +90,21 @@ const cardsSection = new Section(
 );
 cardsSection.renderItems();
 
+// создание объекта попапа информации о пользователе.
+// принимает селектор попапа и функцию коллбек сабмита формы
+// колбэк обновляет ин-фу на сервере и на странице
+const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
+  api.updateUserData(data);
+  api.getUserData().then(data => {
+    userData.setUserInfo(data);
+  });
+});
+
+profilePopup.setEventListeners(); // установка всех слушателей
+// открытие попама и подстановка значений по умолчанию в форму
+editingProfileButton.addEventListener("click", () => {
+  profileFormValidator.resetValidation(); // сброс ошибок валидации
+  profilePopup.open();
+  const userInfo = userData.getUserInfo();
+  profilePopup.setInputValues(userInfo); // подстановка значений по умолчанию
+});

@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor({ name, occupation }) {
+  constructor({ name, occupation, avatar }) {
     this._name = document.querySelector(name);
     this._occupation = document.querySelector(occupation);
+    this._avatar = document.querySelector(avatar);
   }
 
   getUserInfo() {
@@ -12,9 +13,10 @@ export default class UserInfo {
     return userData;
   }
 
-  setUserInfo({ formUserName, formUserOccupation }) {
-    // принимает данные из формы и подставляет на страницу
-    this._name.textContent = formUserName;
-    this._occupation.textContent = formUserOccupation;
+  setUserInfo({ name, about, avatar }) {
+    // принимает данные c сервера и подставляет на страницу
+    this._name.textContent = name;
+    this._occupation.textContent = about;
+    this._avatar.src = avatar;
   }
 }

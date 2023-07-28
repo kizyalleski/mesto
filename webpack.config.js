@@ -22,6 +22,7 @@ module.exports = {
     hot: true,
     liveReload: true
   },
+  devtool: "eval-source-map",
   module: {
     rules: [
       // rules — это массив правил. добавим в него объект правил для бабеля
