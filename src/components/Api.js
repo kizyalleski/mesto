@@ -21,7 +21,7 @@ export default class Api {
       });
   }
 
-  getInitialCards(cards) {
+  getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: this._token,
@@ -82,6 +82,10 @@ export default class Api {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  getLikesCount(imageId) {
+
   }
   // другие методы работы с API
 }
