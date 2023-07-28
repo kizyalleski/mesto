@@ -21,26 +21,12 @@ import Api from "../components/Api.js";
 const userData = new UserInfo({
   name: "#profileUserName",
   occupation: "#profileUserOccupation",
-  avatar: ".profile__avatar-image"
+  avatar: ".profile__avatar-image",
 });
 
 // создание попапа изображения и установка слушателей
 const imagePopup = new PopupWithImage("#imagePopup");
 imagePopup.setEventListeners();
-
-// добавление новых карточек
-// const additionCardPopup = new PopupWithForm("#addCardPopup", data => {
-//   data.link = data.formCardUrl;
-//   data.name = data.formCardName;
-//   const newCardElement = createCard(data);
-//   cardsSection.addItem(newCardElement);
-// });
-// additionCardPopup.setEventListeners();
-
-addCardButton.addEventListener("click", () => {
-  additionCardPopup.open();
-  cardAdditionFormValidator.resetValidation();
-});
 
 // ВАЛИДАЦИЯ
 const profileFormValidator = new FormValidator(
@@ -63,7 +49,7 @@ const api = new Api({
 });
 
 // Начальная подстановка данных пользователя
-api.getUserData().then(data => {
+api.getUserData().then((data) => {
   userData.setUserInfo(data);
 });
 
@@ -71,7 +57,7 @@ api.getUserData().then(data => {
 const initialCards = await api.getInitialCards();
 
 // Функция создания карточки
-const createCard = data => {
+const createCard = (data) => {
   const card = new Card(data, "#elementTemplate", (link, name) => {
     imagePopup.open(link, name);
   });
@@ -95,7 +81,7 @@ cardsSection.renderItems();
 // колбэк обновляет ин-фу на сервере и на странице
 const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
   api.updateUserData(data);
-  api.getUserData().then(data => {
+  api.getUserData().then((data) => {
     userData.setUserInfo(data);
   });
 });
@@ -107,4 +93,18 @@ editingProfileButton.addEventListener("click", () => {
   profilePopup.open();
   const userInfo = userData.getUserInfo();
   profilePopup.setInputValues(userInfo); // подстановка значений по умолчанию
+});
+
+// Добавление новой карточки
+const additionCardPopup = new PopupWithForm("#addCardPopup", (data) => {
+  api.addNewCard(data.formCardName, data.formCardUrl).then((data) => {
+    const newCardElement = createCard(data);
+    cardsSection.addItem(newCardElement);
+  });
+});
+additionCardPopup.setEventListeners();
+
+addCardButton.addEventListener("click", () => {
+  additionCardPopup.open();
+  cardAdditionFormValidator.resetValidation();
 });

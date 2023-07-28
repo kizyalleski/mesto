@@ -15,6 +15,6 @@ export default class Section {
 
   addItem(element) {
     // принимает элемент и вставляет его в документ методом append
-    this._container.prepend(element);
+    this._container.append(element);
   }
 }
