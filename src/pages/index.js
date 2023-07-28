@@ -2,7 +2,7 @@
 import "./index.css";
 // импорт констант и модулей
 import {
-  cards,
+  // cards,
   editingProfileButton,
   addCardButton,
   configuration,
@@ -43,34 +43,14 @@ editingProfileButton.addEventListener("click", () => {
 const imagePopup = new PopupWithImage("#imagePopup");
 imagePopup.setEventListeners();
 
-// Функция создания карточки
-const createCard = data => {
-  const card = new Card(data, "#elementTemplate", (link, name) => {
-    imagePopup.open(link, name);
-  });
-  return card.generateCard();
-};
-
-// Добавление начальных карточек
-const cardsSection = new Section(
-  {
-    items: cards,
-    renderer: (item) => {
-      return createCard(item);
-    },
-  },
-  ".elements"
-);
-cardsSection.renderItems();
-
 // добавление новых карточек
-const additionCardPopup = new PopupWithForm("#addCardPopup", data => {
-  data.link = data.formCardUrl;
-  data.name = data.formCardName;
-  const newCardElement = createCard(data);
-  cardsSection.addItem(newCardElement);
-});
-additionCardPopup.setEventListeners();
+// const additionCardPopup = new PopupWithForm("#addCardPopup", data => {
+//   data.link = data.formCardUrl;
+//   data.name = data.formCardName;
+//   const newCardElement = createCard(data);
+//   cardsSection.addItem(newCardElement);
+// });
+// additionCardPopup.setEventListeners();
 
 addCardButton.addEventListener("click", () => {
   additionCardPopup.open();
@@ -91,20 +71,48 @@ const cardAdditionFormValidator = new FormValidator(
 cardAdditionFormValidator.enableValidation();
 
 
+
+
+
+///////////////////////////////////////////////////
 ////////////// API
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-71',
-  token: "adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f"
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-71",
+  token: "adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f",
 });
 
 // Начальная подстановка данных пользователя
-let userName = document.querySelector('.profile__user-name');
-let userOccupation = document.querySelector('.profile__user-occupation');
-let userAvatar = document.querySelector('.profile__avatar-image');
-let userId = '';
-api.getUserData().then(data => {
-  userName = data.name;
-  userOccupation = data.occupation;
-  userAvatar.src = data.avatar;
+let userNameElement = document.querySelector(".profile__user-name");
+let userOccupationElement = document.querySelector(".profile__user-occupation");
+let userAvatarElement = document.querySelector(".profile__avatar-image");
+let userId = "";
+api.getUserData().then((data) => {
+  userNameElement = data.name;
+  userOccupationElement = data.occupation;
+  userAvatarElement.src = data.avatar;
   userId = data._id;
 });
+
+// Получение данных исходных карточек
+const initialCards = await api.getInitialCards();
+
+// Функция создания карточки
+const createCard = data => {
+  const card = new Card(data, "#elementTemplate", (link, name) => {
+    imagePopup.open(link, name);
+  });
+  return card.generateCard();
+};
+
+// Добавление начальных карточек
+const cardsSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      return createCard(item);
+    },
+  },
+  ".elements"
+);
+cardsSection.renderItems();
+

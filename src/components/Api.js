@@ -1,6 +1,3 @@
-// url = "https://mesto.nomoreparties.co/v1/cohort-71";
-// const token = 'adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f';
-
 export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -24,15 +21,19 @@ export default class Api {
     });
   }
 
-  getInitialCards() {
-    return fetch(url, {
+  getInitialCards(cards) {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: {
-        authorization: token,
+        authorization: this._token,
       },
     }).then((res) => {
       if (res.ok) {
         return res.json();
       }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch(err => {
+      console.log(err);
     });
   }
 
