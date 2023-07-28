@@ -53,12 +53,15 @@ api.getUserData().then((data) => {
   userData.setUserInfo(data);
 });
 
+// Получение id пользователя
+const userId = (await api.getUserData())._id;
+
 // Получение данных исходных карточек
 const initialCards = await api.getInitialCards();
 
 // Функция создания карточки
 const createCard = (data) => {
-  const card = new Card(data, "#elementTemplate", (link, name) => {
+  const card = new Card(data, "#elementTemplate", userId, (link, name) => {
     imagePopup.open(link, name);
   });
   return card.generateCard();
