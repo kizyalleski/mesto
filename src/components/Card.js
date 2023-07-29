@@ -51,6 +51,7 @@ export default class Card {
     // удаление карточки
     this._deletionElement = this._element.querySelector(".element__trash");
     this._deletionElement.addEventListener("click", () => {
+      this._handleDeliteClick();
       this._deleteElement();
     });
     // открытие полной версии картинки
@@ -63,7 +64,7 @@ export default class Card {
   }
 
   _deleteElement() {
-    this._element.remove();
+    // this._element.remove();
   }
 
   _openImage() {

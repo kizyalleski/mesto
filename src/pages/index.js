@@ -14,6 +14,7 @@ import Card from "../components/Card.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 
@@ -53,6 +54,18 @@ api.getUserData().then((data) => {
   userData.setUserInfo(data);
 });
 
+///////
+// Попап подтверждения удаления карточки
+const confirmationPopup = new PopupWithConfirmation(
+  "#confirmPopup",
+  (imageId) => {
+    api.deleteCard(imageId).then((data) => {
+      console.log(data);
+    });
+  }
+);
+confirmationPopup.setEventListeners();
+
 // Получение id пользователя
 const userId = (await api.getUserData())._id;
 
@@ -61,9 +74,17 @@ const initialCards = await api.getInitialCards();
 
 // Функция создания карточки
 const createCard = (data) => {
-  const card = new Card(data, "#elementTemplate", userId, (link, name) => {
-    imagePopup.open(link, name);
-  });
+  const card = new Card(
+    data,
+    "#elementTemplate",
+    userId,
+    (link, name) => {
+      imagePopup.open(link, name);
+    },
+    () => {
+      confirmationPopup.open(data._id);
+    }
+  );
   return card.generateCard();
 };
 

@@ -40,15 +40,15 @@ export default class Api {
 
   updateUserData({ formUserName, formUserOccupation }) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
         authorization: this._token,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: formUserName,
-        about: formUserOccupation
-      })
+        about: formUserOccupation,
+      }),
     })
       .then((res) => {
         if (res.ok) {
@@ -63,15 +63,33 @@ export default class Api {
 
   addNewCard(cardName, cardLink) {
     return fetch(`${this._baseUrl}/cards`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         authorization: this._token,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: cardName,
-        link: cardLink
+        link: cardLink,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+      },
     })
       .then((res) => {
         if (res.ok) {
@@ -85,7 +103,7 @@ export default class Api {
   }
 
   getLikesCount(imageId) {
-
+    
   }
   // другие методы работы с API
 }
