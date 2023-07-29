@@ -23,6 +23,7 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._element.id = this._id;
     this._elementImage = this._element.querySelector(".element__image");
     this._elementName = this._element.querySelector(".element__name");
     this._elementLikes = this._element.querySelector(".element__like-counter");
