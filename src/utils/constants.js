@@ -3,10 +3,10 @@ const editingProfileButton = document.querySelector("#editProfileButton");
 const addCardButton = document.querySelector("#addCardFormButton");
 const changeAvatarPopupButton = document.querySelector('.profile__avatar');
 
-
 // Константы для валидациии
 const additionCardForm = document.querySelector("#addCardForm");
 const editingProfileForm = document.querySelector("#editingProfileForm");
+const avatarUpdatingForm = document.querySelector("#updateAvatarForm");
 
 const configuration = {
   formSelector: ".form",
@@ -24,5 +24,6 @@ export {
   changeAvatarPopupButton,
   additionCardForm,
   editingProfileForm,
+  avatarUpdatingForm,
   configuration,
 };

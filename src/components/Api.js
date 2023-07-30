@@ -159,6 +159,4 @@ export default class Api {
         console.log(err);
       });
   }
-
-  // другие методы работы с API
 }

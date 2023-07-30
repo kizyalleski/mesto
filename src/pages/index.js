@@ -8,6 +8,7 @@ import {
   changeAvatarPopupButton,
   configuration,
   editingProfileForm,
+  avatarUpdatingForm,
   additionCardForm,
 } from "../utils/constants.js";
 import Section from "../components/Section.js";
@@ -43,8 +44,13 @@ const cardAdditionFormValidator = new FormValidator(
 );
 cardAdditionFormValidator.enableValidation();
 
-///////////////////////////////////////////////////
-////////////// API
+const avatarUpdatingFormValidator = new FormValidator(
+  configuration,
+  avatarUpdatingForm
+);
+avatarUpdatingFormValidator.enableValidation();
+
+// API
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-71",
   token: "adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f",
@@ -55,7 +61,6 @@ api.getUserData().then((data) => {
   userData.setUserInfo(data);
 });
 
-///////
 // Попап подтверждения удаления карточки
 const confirmationPopup = new PopupWithConfirmation(
   "#confirmPopup",
@@ -77,15 +82,13 @@ const createCard = (data) => {
     data,
     "#elementTemplate",
     userId,
-    (link, name) => {
-      // коллбэк открытия попапа изображения
+    (link, name) => { // коллбэк открытия попапа изображения
       imagePopup.open(link, name);
     },
-    () => {
-      // коллбэк открытия попапа подтврждения удаления карточки
+    () => { // коллбэк открытия попапа подтврждения удаления карточки
       confirmationPopup.open(data._id);
     },
-    (isLiked, imageId) => {
+    (isLiked, imageId) => { // коллбэк лайка
       if (!isLiked) {
         return api.addLike(imageId);
       } else if (isLiked) {
@@ -149,6 +152,7 @@ const avatarPopup = new PopupWithForm('#updateAvatarPopup', data => {
 });
 
 changeAvatarPopupButton.addEventListener('click', () => {
+  avatarUpdatingFormValidator.resetValidation();
   avatarPopup.setEventListeners();
   avatarPopup.open();
 });
