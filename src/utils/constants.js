@@ -1,8 +1,10 @@
-// Кнопка открытия попапа редактирования профиля
+// Кнопки открытия попапов
 const editingProfileButton = document.querySelector("#editProfileButton");
 const addCardButton = document.querySelector("#addCardFormButton");
+const changeAvatarPopupButton = document.querySelector('.profile__avatar');
 
-// Константы для валижациии
+
+// Константы для валидациии
 const additionCardForm = document.querySelector("#addCardForm");
 const editingProfileForm = document.querySelector("#editingProfileForm");
 
@@ -17,9 +19,9 @@ const configuration = {
 };
 
 export {
-  // cards,
   editingProfileButton,
   addCardButton,
+  changeAvatarPopupButton,
   additionCardForm,
   editingProfileForm,
   configuration,

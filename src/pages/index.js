@@ -5,6 +5,7 @@ import {
   // cards,
   editingProfileButton,
   addCardButton,
+  changeAvatarPopupButton,
   configuration,
   editingProfileForm,
   additionCardForm,
@@ -59,9 +60,7 @@ api.getUserData().then((data) => {
 const confirmationPopup = new PopupWithConfirmation(
   "#confirmPopup",
   (imageId) => {
-    api.deleteCard(imageId).then((data) => {
-      console.log(data);
-    });
+    api.deleteCard(imageId);
   }
 );
 confirmationPopup.setEventListeners();
@@ -101,7 +100,7 @@ const createCard = (data) => {
 const cardsSection = new Section(
   {
     items: initialCards,
-    renderer: (item) => {
+    renderer: item => {
       return createCard(item);
     },
   },
@@ -112,9 +111,9 @@ cardsSection.renderItems();
 // создание объекта попапа информации о пользователе.
 // принимает селектор попапа и функцию коллбек сабмита формы
 // колбэк обновляет ин-фу на сервере и на странице
-const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
+const profilePopup = new PopupWithForm("#editProfilePopup", data => {
   api.updateUserData(data);
-  api.getUserData().then((data) => {
+  return api.getUserData().then((data) => {
     userData.setUserInfo(data);
   });
 });
@@ -129,8 +128,8 @@ editingProfileButton.addEventListener("click", () => {
 });
 
 // Добавление новой карточки
-const additionCardPopup = new PopupWithForm("#addCardPopup", (data) => {
-  api.addNewCard(data.formCardName, data.formCardUrl).then((data) => {
+const additionCardPopup = new PopupWithForm("#addCardPopup", data => {
+  return api.addNewCard(data.formCardName, data.formCardUrl).then((data) => {
     const newCardElement = createCard(data);
     cardsSection.addItem(newCardElement);
   });
@@ -143,13 +142,12 @@ addCardButton.addEventListener("click", () => {
 });
 
 // Обновление аватара пользователя
-const avatarPopup = new PopupWithForm('#undateAvatarPopup', (data) => {
-  api.changeAvatar(data.formAvatarLink).then(data => {
+const avatarPopup = new PopupWithForm('#updateAvatarPopup', data => {
+  return api.changeAvatar(data.formAvatarLink).then(data => {
     userData.changeAvatar(data.avatar);
   });
 });
 
-const changeAvatarPopupButton = document.querySelector('.profile__avatar');
 changeAvatarPopupButton.addEventListener('click', () => {
   avatarPopup.setEventListeners();
   avatarPopup.open();
