@@ -79,10 +79,19 @@ const createCard = (data) => {
     "#elementTemplate",
     userId,
     (link, name) => {
+      // коллбэк открытия попапа изображения
       imagePopup.open(link, name);
     },
     () => {
+      // коллбэк открытия попапа подтврждения удаления карточки
       confirmationPopup.open(data._id);
+    },
+    (isLiked, imageId) => {
+      if (!isLiked) {
+        return api.addLike(imageId);
+      } else if (isLiked) {
+        return api.deleteLike(imageId);
+      }
     }
   );
   return card.generateCard();

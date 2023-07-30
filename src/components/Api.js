@@ -86,7 +86,7 @@ export default class Api {
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         authorization: this._token,
       },
@@ -102,8 +102,41 @@ export default class Api {
       });
   }
 
-  getLikesCount(imageId) {
-    
+  addLike(imageId) {
+    return fetch(`${this._baseUrl}/cards/${imageId}/likes`, {
+      method: "PUT",
+      headers: {
+        authorization: this._token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
+  deleteLike(imageId) {
+    return fetch(`${this._baseUrl}/cards/${imageId}/likes`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._token,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   // другие методы работы с API
 }
