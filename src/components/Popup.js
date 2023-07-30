@@ -1,7 +1,7 @@
 // принимает на вход селектор попапа
 export default class Popup {
   constructor(selector) {
-    this._selector = selector;
+    this.selector = selector;
     this._popup = document.querySelector(selector);
     this._closingButton = this._popup.querySelector(".popup__close-button");
     this._handleEscClose = this._handleEscClose.bind(this); // привязка this

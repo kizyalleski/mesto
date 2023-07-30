@@ -40,9 +40,7 @@ export default class Card {
   }
 
   _toggleLikeState() {
-    this._handleLikeClick(this._isLiked, this._id).then(data => {
-      this._elementLikes.textContent = data.likes.length;
-    });
+    this._handleLikeClick(this._isLiked, this._id, this._elementLikes);
     this._isLiked = !this._isLiked;
     this._likeElement.classList.toggle("element__like_active");
   }

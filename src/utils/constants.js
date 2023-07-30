@@ -1,11 +1,11 @@
 // Кнопки открытия попапов
-const editingProfileButton = document.querySelector("#editProfileButton");
-const addCardButton = document.querySelector("#addCardFormButton");
-const changeAvatarPopupButton = document.querySelector('.profile__avatar');
+const buttonEditProfile = document.querySelector("#editProfileButton");
+const buttonAddCard = document.querySelector("#addCardFormButton");
+const buttonChangeAvatar = document.querySelector('.profile__avatar');
 
 // Константы для валидациии
-const additionCardForm = document.querySelector("#addCardForm");
-const editingProfileForm = document.querySelector("#editingProfileForm");
+const cardEditionForm = document.querySelector("#addCardForm");
+const profileEditForm = document.querySelector("#editingProfileForm");
 const avatarUpdatingForm = document.querySelector("#updateAvatarForm");
 
 const configuration = {
@@ -19,11 +19,23 @@ const configuration = {
 };
 
 export {
-  editingProfileButton,
-  addCardButton,
-  changeAvatarPopupButton,
-  additionCardForm,
-  editingProfileForm,
+  buttonEditProfile,
+  buttonAddCard,
+  buttonChangeAvatar,
+  cardEditionForm,
+  profileEditForm,
   avatarUpdatingForm,
   configuration,
 };
+
+export function changeButtonToSavingState(popup) {
+  popup.submitButton.textContent = 'Сохранение...';
+}
+
+export function changeButtonToSaveState(popup, selector) {
+  if (popup.selector === "#addCardPopup") {
+    popup.submitButton.textContent = "Создать";
+  } else {
+    popup.submitButton.textContent = 'Сохранить';
+  }
+}
