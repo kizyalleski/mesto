@@ -19,4 +19,8 @@ export default class UserInfo {
     this._occupation.textContent = about;
     this._avatar.src = avatar;
   }
+
+  changeAvatar(avatar) {
+    this._avatar.src = avatar
+  }
 }

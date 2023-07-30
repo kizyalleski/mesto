@@ -141,3 +141,16 @@ addCardButton.addEventListener("click", () => {
   additionCardPopup.open();
   cardAdditionFormValidator.resetValidation();
 });
+
+// Обновление аватара пользователя
+const avatarPopup = new PopupWithForm('#undateAvatarPopup', (data) => {
+  api.changeAvatar(data.formAvatarLink).then(data => {
+    userData.changeAvatar(data.avatar);
+  });
+});
+
+const changeAvatarPopupButton = document.querySelector('.profile__avatar');
+changeAvatarPopupButton.addEventListener('click', () => {
+  avatarPopup.setEventListeners();
+  avatarPopup.open();
+});
