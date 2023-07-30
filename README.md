@@ -10,6 +10,7 @@
 * БЭМ (Nested)
 * Vanilla JavaScript (Modules, Classes)
 * Webpack
+* REST API
 
 **Функциональность**
 
