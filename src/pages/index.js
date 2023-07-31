@@ -71,7 +71,12 @@ userData.setUserInfo(userInfo);
 const confirmationPopup = new PopupWithConfirmation(
   "#confirmPopup",
   (imageId) => {
-    api.deleteCard(imageId).catch((err) => {
+    api.deleteCard(imageId).then(() => {
+      const cardElement = document.getElementById(imageId);
+      cardElement.remove();
+      confirmationPopup.close();
+    })
+    .catch((err) => {
       console.log(err);
     });
   }
