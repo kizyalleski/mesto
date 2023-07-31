@@ -10,7 +10,7 @@ import {
   avatarUpdatingForm,
   cardEditionForm,
   changeButtonToSaveState,
-  changeButtonToSavingState
+  changeButtonToSavingState,
 } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
@@ -21,16 +21,11 @@ import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 
-// ОСНОВНОЙ ФУНКЦИОНАЛ
-const userData = new UserInfo({
-  name: "#profileUserName",
-  occupation: "#profileUserOccupation",
-  avatar: ".profile__avatar-image",
+// API
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-71",
+  token: "adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f",
 });
-
-// создание попапа изображения и установка слушателей
-const imagePopup = new PopupWithImage("#imagePopup");
-imagePopup.setEventListeners();
 
 // ВАЛИДАЦИЯ
 const profileFormValidator = new FormValidator(configuration, profileEditForm);
@@ -48,37 +43,40 @@ const avatarUpdatingFormValidator = new FormValidator(
 );
 avatarUpdatingFormValidator.enableValidation();
 
-// API
-const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-71",
-  token: "adcf1977-5cab-4323-ab2f-1ddbaf1d5d1f",
+// ОСНОВНОЙ ФУНКЦИОНАЛ
+const userData = new UserInfo({
+  name: "#profileUserName",
+  occupation: "#profileUserOccupation",
+  avatar: ".profile__avatar-image",
 });
 
-// Начальная подстановка данных пользователя
-api.getUserData().then((data) => {
-  userData.setUserInfo(data);
-}).catch(err => {
-  console.log(err);
-});
+// создание попапа изображения и установка слушателей
+const imagePopup = new PopupWithImage("#imagePopup");
+imagePopup.setEventListeners();
+
+// получение исходных данных: информации от пользователя и начальных карточек
+const [userInfo, initialCards] = await Promise.all([
+  api.getUserData().catch((err) => {
+    console.log(err);
+  }),
+  api.getInitialCards().catch((err) => {
+    console.log(err);
+  }),
+]);
+const userId = userInfo._id;
+// установка начальных данных пользователя
+userData.setUserInfo(userInfo);
 
 // Попап подтверждения удаления карточки
 const confirmationPopup = new PopupWithConfirmation(
   "#confirmPopup",
   (imageId) => {
-    api.deleteCard(imageId).catch(err => {
+    api.deleteCard(imageId).catch((err) => {
       console.log(err);
     });
   }
 );
 confirmationPopup.setEventListeners();
-
-// Получение id пользователя
-const userId = (await api.getUserData().catch(err => {
-  console.log(err);
-}))._id;
-
-// Получение данных исходных карточек
-const initialCards = await api.getInitialCards();
 
 // Функция создания карточки
 const createCard = (data) => {
@@ -97,12 +95,12 @@ const createCard = (data) => {
     (isLiked, imageId, likeCount) => {
       // коллбэк лайка
       (isLiked ? api.deleteLike(imageId) : api.addLike(imageId))
-        .then((data) => {
-          likeCount.textContent = data.likes.length;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .then((data) => {
+        likeCount.textContent = data.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     }
   );
   return card.generateCard();
@@ -125,18 +123,20 @@ cardsSection.renderItems();
 // колбэк обновляет ин-фу на сервере и на странице
 const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
   changeButtonToSavingState(profilePopup);
-  api.updateUserData(data).catch(err => {
+  api.updateUserData(data).catch((err) => {
     console.log(err);
   });
-  api.getUserData().then((data) => {
-    userData.setUserInfo(data);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    changeButtonToSaveState(profilePopup);
-  });
+  api
+    .getUserData()
+    .then((data) => {
+      userData.setUserInfo(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      changeButtonToSaveState(profilePopup);
+    });
 });
 
 profilePopup.setEventListeners(); // установка всех слушателей
@@ -151,17 +151,18 @@ buttonEditProfile.addEventListener("click", () => {
 // Добавление новой карточки
 const additionCardPopup = new PopupWithForm("#addCardPopup", (data) => {
   changeButtonToSavingState(additionCardPopup);
-  api.addNewCard(data.formCardName, data.formCardUrl)
-  .then((data) => {
-    const newCardElement = createCard(data);
-    cardsSection.addItem(newCardElement);
-  })
-  .catch(err => {
-    console.log(err);
-  })
-  .finally(() => {
-    changeButtonToSaveState(additionCardPopup);
-  });
+  api
+    .addNewCard(data.formCardName, data.formCardUrl)
+    .then((data) => {
+      const newCardElement = createCard(data);
+      cardsSection.addItem(newCardElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      changeButtonToSaveState(additionCardPopup);
+    });
 });
 additionCardPopup.setEventListeners();
 
@@ -173,15 +174,17 @@ buttonAddCard.addEventListener("click", () => {
 // Обновление аватара пользователя
 const avatarPopup = new PopupWithForm("#updateAvatarPopup", (data) => {
   changeButtonToSavingState(avatarPopup);
-  api.changeAvatar(data.formAvatarLink).then((data) => {
-    userData.changeAvatar(data.avatar);
-  })
-  .catch(err => {
-    console.log(err);
-  })
-  .finally(() => {
-    changeButtonToSaveState(avatarPopup);
-  });
+  api
+    .changeAvatar(data.formAvatarLink)
+    .then((data) => {
+      userData.changeAvatar(data.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      changeButtonToSaveState(avatarPopup);
+    });
 });
 
 buttonChangeAvatar.addEventListener("click", () => {
