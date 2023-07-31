@@ -57,19 +57,25 @@ const api = new Api({
 // Начальная подстановка данных пользователя
 api.getUserData().then((data) => {
   userData.setUserInfo(data);
+}).catch(err => {
+  console.log(err);
 });
 
 // Попап подтверждения удаления карточки
 const confirmationPopup = new PopupWithConfirmation(
   "#confirmPopup",
   (imageId) => {
-    api.deleteCard(imageId);
+    api.deleteCard(imageId).catch(err => {
+      console.log(err);
+    });
   }
 );
 confirmationPopup.setEventListeners();
 
 // Получение id пользователя
-const userId = (await api.getUserData())._id;
+const userId = (await api.getUserData().catch(err => {
+  console.log(err);
+}))._id;
 
 // Получение данных исходных карточек
 const initialCards = await api.getInitialCards();
@@ -149,6 +155,9 @@ const additionCardPopup = new PopupWithForm("#addCardPopup", (data) => {
   .then((data) => {
     const newCardElement = createCard(data);
     cardsSection.addItem(newCardElement);
+  })
+  .catch(err => {
+    console.log(err);
   })
   .finally(() => {
     changeButtonToSaveState(additionCardPopup);
