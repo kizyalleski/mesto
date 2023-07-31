@@ -126,10 +126,9 @@ const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
   api.updateUserData(data).catch((err) => {
     console.log(err);
   });
-  api
-    .getUserData()
-    .then((data) => {
+  api.getUserData().then((data) => {
       userData.setUserInfo(data);
+      profilePopup.close();
     })
     .catch((err) => {
       console.log(err);
@@ -151,11 +150,10 @@ buttonEditProfile.addEventListener("click", () => {
 // Добавление новой карточки
 const additionCardPopup = new PopupWithForm("#addCardPopup", (data) => {
   changeButtonToSavingState(additionCardPopup);
-  api
-    .addNewCard(data.formCardName, data.formCardUrl)
-    .then((data) => {
+  api.addNewCard(data.formCardName, data.formCardUrl).then((data) => {
       const newCardElement = createCard(data);
       cardsSection.addItem(newCardElement);
+      additionCardPopup.close();
     })
     .catch((err) => {
       console.log(err);
@@ -174,10 +172,9 @@ buttonAddCard.addEventListener("click", () => {
 // Обновление аватара пользователя
 const avatarPopup = new PopupWithForm("#updateAvatarPopup", (data) => {
   changeButtonToSavingState(avatarPopup);
-  api
-    .changeAvatar(data.formAvatarLink)
-    .then((data) => {
+  api.changeAvatar(data.formAvatarLink).then((data) => {
       userData.changeAvatar(data.avatar);
+      avatarPopup.close();
     })
     .catch((err) => {
       console.log(err);
