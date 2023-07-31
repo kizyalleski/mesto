@@ -92,11 +92,13 @@ const createCard = (data) => {
       // коллбэк открытия попапа подтврждения удаления карточки
       confirmationPopup.open(data._id);
     },
-    (isLiked, imageId, likeCount) => {
+    (isLiked, imageId, likeCount, likeElement) => {
       // коллбэк лайка
       (isLiked ? api.deleteLike(imageId) : api.addLike(imageId))
       .then((data) => {
+        card._isLiked = !isLiked;
         likeCount.textContent = data.likes.length;
+        likeElement.classList.toggle("element__like_active");
       })
       .catch((err) => {
         console.log(err);
