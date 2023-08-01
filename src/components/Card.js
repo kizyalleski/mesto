@@ -73,10 +73,15 @@ export default class Card {
     this._handleLikeClick(
       this._isLiked,
       this._id,
-      this._elementLikes,
-      this._likeElement
+      this._elementLikes
     );
-}
+    this._elementLike.classList.toggle("element__like_active");
+    this._isLiked = !this._isLiked;
+  }
+
+  setLikesCount(likeCount) {
+    this._elementLikes.textContent = likeCount;
+  }
 
   _setEventListeners() {
     // лайк

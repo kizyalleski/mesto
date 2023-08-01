@@ -105,13 +105,11 @@ const createCard = (data) => {
       confirmationPopup.open(card._id, card);
       confirmationPopup.setEventListeners();
     },
-    (isLiked, imageId, likeCount, likeElement) => {
+    (isLiked, imageId) => {
       // коллбэк лайка
       (isLiked ? api.deleteLike(imageId) : api.addLike(imageId))
         .then((data) => {
-          likeCount.textContent = data.likes.length;
-          likeElement.classList.toggle("element__like_active");
-          card._isLiked = !isLiked;
+          card.setLikesCount(data.likes.length);
         })
         .catch((err) => {
           console.log(err);
