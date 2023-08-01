@@ -69,19 +69,23 @@ userData.setUserInfo(userInfo);
 
 // Попап подтверждения удаления карточки
 const confirmationPopup = new PopupWithConfirmation(
-  "#confirmPopup",
-  (imageId) => {
-    api.deleteCard(imageId).then(() => {
-      const cardElement = document.getElementById(imageId);
-      cardElement.remove();
+  "#confirmPopup"
+);
+confirmationPopup.setEventListeners();
+
+// функция для снятия слушателя после закрытия попапа удаления карточки
+const handleCardDelete = (e, cardId, card) => {
+  e.preventDefault();
+  api.deleteCard(cardId)
+    .then(() => {
+      card.deleteElement();
       confirmationPopup.close();
+      confirmationPopup.form.removeEventListener("submit", handleCardDelete);
     })
     .catch((err) => {
       console.log(err);
     });
-  }
-);
-confirmationPopup.setEventListeners();
+};
 
 // Функция создания карточки
 const createCard = (data) => {
@@ -96,18 +100,21 @@ const createCard = (data) => {
     () => {
       // коллбэк открытия попапа подтврждения удаления карточки
       confirmationPopup.open(data._id);
+      confirmationPopup.form.addEventListener("submit", e => {
+        handleCardDelete(e, data._id, card);
+      });
     },
     (isLiked, imageId, likeCount, likeElement) => {
       // коллбэк лайка
       (isLiked ? api.deleteLike(imageId) : api.addLike(imageId))
-      .then((data) => {
-        card._isLiked = !isLiked;
-        likeCount.textContent = data.likes.length;
-        likeElement.classList.toggle("element__like_active");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((data) => {
+          card._isLiked = !isLiked;
+          likeCount.textContent = data.likes.length;
+          likeElement.classList.toggle("element__like_active");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   );
   return card.generateCard();
@@ -133,7 +140,9 @@ const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
   api.updateUserData(data).catch((err) => {
     console.log(err);
   });
-  api.getUserData().then((data) => {
+  api
+    .getUserData()
+    .then((data) => {
       userData.setUserInfo(data);
       profilePopup.close();
     })
@@ -157,7 +166,9 @@ buttonEditProfile.addEventListener("click", () => {
 // Добавление новой карточки
 const additionCardPopup = new PopupWithForm("#addCardPopup", (data) => {
   changeButtonToSavingState(additionCardPopup);
-  api.addNewCard(data.formCardName, data.formCardUrl).then((data) => {
+  api
+    .addNewCard(data.formCardName, data.formCardUrl)
+    .then((data) => {
       const newCardElement = createCard(data);
       cardsSection.addItem(newCardElement);
       additionCardPopup.close();
@@ -179,7 +190,9 @@ buttonAddCard.addEventListener("click", () => {
 // Обновление аватара пользователя
 const avatarPopup = new PopupWithForm("#updateAvatarPopup", (data) => {
   changeButtonToSavingState(avatarPopup);
-  api.changeAvatar(data.formAvatarLink).then((data) => {
+  api
+    .changeAvatar(data.formAvatarLink)
+    .then((data) => {
       userData.changeAvatar(data.avatar);
       avatarPopup.close();
     })
