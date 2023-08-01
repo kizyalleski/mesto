@@ -107,9 +107,9 @@ const createCard = (data) => {
       // коллбэк лайка
       (isLiked ? api.deleteLike(imageId) : api.addLike(imageId))
         .then((data) => {
-          card._isLiked = !isLiked;
           likeCount.textContent = data.likes.length;
           likeElement.classList.toggle("element__like_active");
+          card._isLiked = !isLiked;
         })
         .catch((err) => {
           console.log(err);
