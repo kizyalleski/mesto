@@ -1,5 +1,5 @@
 # Место
-Vanilla JS
+Image Gallery
 
 **Технологии**
 
