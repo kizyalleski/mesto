@@ -68,15 +68,14 @@ const userId = userInfo._id;
 userData.setUserInfo(userInfo);
 
 // Попап подтверждения удаления карточки
-const confirmationPopup = new PopupWithConfirmation(
-  "#confirmPopup"
-);
+const confirmationPopup = new PopupWithConfirmation("#confirmPopup");
 confirmationPopup.setEventListeners();
 
 // функция для снятия слушателя после закрытия попапа удаления карточки
 const handleCardDelete = (e, cardId, card) => {
   e.preventDefault();
-  api.deleteCard(cardId)
+  api
+    .deleteCard(cardId)
     .then(() => {
       card.deleteElement();
       confirmationPopup.close();
@@ -100,7 +99,7 @@ const createCard = (data) => {
     () => {
       // коллбэк открытия попапа подтврждения удаления карточки
       confirmationPopup.open(data._id);
-      confirmationPopup.form.addEventListener("submit", e => {
+      confirmationPopup.form.addEventListener("submit", (e) => {
         handleCardDelete(e, data._id, card);
       });
     },
@@ -137,11 +136,7 @@ cardsSection.renderItems();
 // колбэк обновляет ин-фу на сервере и на странице
 const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
   changeButtonToSavingState(profilePopup);
-  api.updateUserData(data).catch((err) => {
-    console.log(err);
-  });
-  api
-    .getUserData()
+  api.updateUserData(data)
     .then((data) => {
       userData.setUserInfo(data);
       profilePopup.close();
