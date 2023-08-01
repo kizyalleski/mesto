@@ -187,9 +187,9 @@ const avatarPopup = new PopupWithForm("#updateAvatarPopup", (data) => {
       changeButtonToSaveState(avatarPopup);
     });
 });
+avatarPopup.setEventListeners();
 
 buttonChangeAvatar.addEventListener("click", () => {
   avatarUpdatingFormValidator.resetValidation();
-  avatarPopup.setEventListeners();
   avatarPopup.open();
 });
