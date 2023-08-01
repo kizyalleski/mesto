@@ -10,8 +10,4 @@ export default class PopupWithConfirmation extends Popup {
     super.open();
     this._cardId = cardId;
   }
-
-  setEventListeners() {
-    super.setEventListeners();
-  }
 }

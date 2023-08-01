@@ -76,7 +76,7 @@ export default class Card {
       this._elementLikes,
       this._likeElement
     );
-  }
+}
 
   _setEventListeners() {
     // лайк

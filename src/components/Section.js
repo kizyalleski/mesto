@@ -1,13 +1,12 @@
 export default class Section {
-  constructor({ items, renderer }, selector) {
-    this._initialArray = items;
+  constructor({ renderer, selector }) {
     this._renderer = renderer;
     this._container = document.querySelector(selector);
   }
 
-  renderItems() {
+  renderItems(items) {
     // перебирает массив _initialArray и вызывает для каждого элемента метод addItem()
-    this._initialArray.slice().reverse().forEach((item) => {
+    items.slice().reverse().forEach((item) => {
       const cardElement = this._renderer(item);
       this.addItem(cardElement);
     });

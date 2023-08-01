@@ -54,22 +54,27 @@ const userData = new UserInfo({
 const imagePopup = new PopupWithImage("#imagePopup");
 imagePopup.setEventListeners();
 
+// Создания класса Section для добавления карточек в разметку
+const cardsSection = new Section(
+  {
+    renderer: (item) => {
+      return createCard(item);
+    },
+    selector: ".elements"
+  }
+);
+
 // получение исходных данных: информации от пользователя и начальных карточек
-const [userInfo, initialCards] = await Promise.all([
-  api.getUserData().catch((err) => {
-    console.log(err);
-  }),
-  api.getInitialCards().catch((err) => {
-    console.log(err);
-  }),
-]);
-const userId = userInfo._id;
-// установка начальных данных пользователя
-userData.setUserInfo(userInfo);
+let userId;
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([userInfo, initialCards]) => {
+    userId = userInfo._id;
+    userData.setUserInfo(userInfo);
+    cardsSection.renderItems(initialCards);
+  });
 
 // Попап подтверждения удаления карточки
 const confirmationPopup = new PopupWithConfirmation("#confirmPopup");
-confirmationPopup.setEventListeners();
 
 // функция для снятия слушателя после закрытия попапа удаления карточки
 const handleCardDelete = (e, cardId, card) => {
@@ -118,18 +123,6 @@ const createCard = (data) => {
   );
   return card.generateCard();
 };
-
-// Добавление начальных карточек
-const cardsSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      return createCard(item);
-    },
-  },
-  ".elements"
-);
-cardsSection.renderItems();
 
 // создание объекта попапа информации о пользователе.
 // принимает селектор попапа и функцию коллбек сабмита формы
