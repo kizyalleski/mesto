@@ -55,14 +55,12 @@ const imagePopup = new PopupWithImage("#imagePopup");
 imagePopup.setEventListeners();
 
 // Создания класса Section для добавления карточек в разметку
-const cardsSection = new Section(
-  {
-    renderer: (item) => {
-      return createCard(item);
-    },
-    selector: ".elements"
-  }
-);
+const cardsSection = new Section({
+  renderer: (item) => {
+    return createCard(item);
+  },
+  selector: ".elements",
+});
 
 // получение исходных данных: информации от пользователя и начальных карточек
 let userId;
@@ -71,25 +69,26 @@ Promise.all([api.getUserData(), api.getInitialCards()])
     userId = userInfo._id;
     userData.setUserInfo(userInfo);
     cardsSection.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(err);
   });
 
 // Попап подтверждения удаления карточки
-const confirmationPopup = new PopupWithConfirmation("#confirmPopup");
-
-// функция для снятия слушателя после закрытия попапа удаления карточки
-const handleCardDelete = (e, cardId, card) => {
-  e.preventDefault();
-  api
-    .deleteCard(cardId)
-    .then(() => {
-      card.deleteElement();
-      confirmationPopup.close();
-      confirmationPopup.form.removeEventListener("submit", handleCardDelete);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+const confirmationPopup = new PopupWithConfirmation(
+  "#confirmPopup",
+  (e, cardId, card) => {
+    e.preventDefault();
+    api.deleteCard(cardId)
+      .then(() => {
+        card.deleteElement();
+        confirmationPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 // Функция создания карточки
 const createCard = (data) => {
@@ -103,10 +102,8 @@ const createCard = (data) => {
     },
     () => {
       // коллбэк открытия попапа подтврждения удаления карточки
-      confirmationPopup.open(data._id);
-      confirmationPopup.form.addEventListener("submit", (e) => {
-        handleCardDelete(e, data._id, card);
-      });
+      confirmationPopup.open(card._id, card);
+      confirmationPopup.setEventListeners();
     },
     (isLiked, imageId, likeCount, likeElement) => {
       // коллбэк лайка
@@ -129,7 +126,8 @@ const createCard = (data) => {
 // колбэк обновляет ин-фу на сервере и на странице
 const profilePopup = new PopupWithForm("#editProfilePopup", (data) => {
   changeButtonToSavingState(profilePopup);
-  api.updateUserData(data)
+  api
+    .updateUserData(data)
     .then((data) => {
       userData.setUserInfo(data);
       profilePopup.close();
