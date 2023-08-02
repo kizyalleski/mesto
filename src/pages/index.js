@@ -89,6 +89,7 @@ const confirmationPopup = new PopupWithConfirmation(
       });
   }
 );
+confirmationPopup.setEventListeners();
 
 // Функция создания карточки
 const createCard = (data) => {
@@ -103,7 +104,6 @@ const createCard = (data) => {
     () => {
       // коллбэк открытия попапа подтврждения удаления карточки
       confirmationPopup.open(card._id, card);
-      confirmationPopup.setEventListeners();
     },
     (isLiked, imageId) => {
       // коллбэк лайка
