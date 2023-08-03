@@ -4,13 +4,11 @@ Image Gallery
 **Технологии**
 
 * HTML
-* Vanilla CSS
-* FLEXBOX, GRID
-* Адаптивная верстка, отзывчивая верстка
-* БЭМ (Nested)
-* Vanilla JavaScript (Modules, Classes)
+* CSS (FLEXBOX, GRID, адаптивная и отзывчивая верстка, БЭМ (Nested))
+* JavaScript (ООП)
 * Webpack
 * REST API
+* GitHubPages
 
 **Функциональность**
 
